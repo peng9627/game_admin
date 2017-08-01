@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+    <class name="niuniu.domain.model.system.System" table="t_system" lazy="true">
+        <id name="id" type="java.lang.String" column="id" unsaved-value="null" length="32">
+            <generator class="uuid"/>
+        </id>
+
+        <version column="version" name="version" type="java.lang.Integer"/>
+        <property name="createDate" column="create_date" type="java.util.Date"/>
+        <property name="userAgreement" column="user_agreement" type="java.lang.String"/>
+        <property name="ratio" column="ratio" type="java.math.BigDecimal"/>
+        <property name="countMultiple" column="count_multiple" type="java.lang.Integer"/>
+        <property name="registerGive" column="register_give" type="java.math.BigDecimal"/>
+        <property name="spreadGive" column="spread_give" type="java.math.BigDecimal"/>
+        <property name="extensionDomain" column="extension" type="java.lang.String"/>
+        <property name="payurl" column="payurl" type="java.lang.String"/>
+        <property name="agentGroup" column="agent_group" type="java.lang.String"/>
+        <property name="weChatNumber" column="weChat_number" type="java.lang.String"/>
+        <property name="customerService" column="customer_service" type="java.lang.String"/>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="mappingService" class="niuniu.core.mapping.MappingService"/>
+
+    <!--要定时执行的方法-->
+    <bean id="testTaskJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!--指定要定时执行的方法所在类，将定时任务定义成bean-->
+        <property name="targetObject" ref="userAppService"/>
+        <!--指定定时执行的方法-->
+        <property name="targetMethod" value="updateRanking"/>
+        <!--指定目标封装为有状态的任务，有状态的任务不能并发执行，无状态的任务可并发执行-->
+        <property name="concurrent" value="true"/>
+    </bean>
+</beans>
