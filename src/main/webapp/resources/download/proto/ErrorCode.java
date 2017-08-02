@@ -1,4 +1,4 @@
-package niuniu.mode;
+package game.mode;
 
 /**
  * Created by pengyi on 2016/4/15.

@@ -8,11 +8,11 @@
         <property name="maxUploadSize" value="2000000000"/>
     </bean>
 
-    <bean id="uploadService" class="niuniu.core.upload.FileUploadService">
+    <bean id="uploadService" class="game.core.upload.FileUploadService">
         <property name="fileUploadConfig" ref="fileUploadConfig"/>
     </bean>
 
-    <bean id="fileUploadConfig" class="niuniu.core.upload.FileUploadConfig">
+    <bean id="fileUploadConfig" class="game.core.upload.FileUploadConfig">
         <property name="domainName" value="${upload.domainName}"/>
         <property name="path" value="${upload.path}"/>
 

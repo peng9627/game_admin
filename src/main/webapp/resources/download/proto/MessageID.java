@@ -1,4 +1,4 @@
-package niuniu.mode;
+package game.mode;
 
 /**
  * Author pengyi

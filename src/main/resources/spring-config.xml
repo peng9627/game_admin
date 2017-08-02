@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="mappingService" class="niuniu.core.mapping.MappingService"/>
+    <bean id="mappingService" class="game.core.mapping.MappingService"/>
 
     <!--要定时执行的方法-->
     <bean id="testTaskJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">

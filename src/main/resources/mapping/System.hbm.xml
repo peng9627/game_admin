@@ -3,7 +3,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-access="field">
-    <class name="niuniu.domain.model.system.System" table="t_system" lazy="true">
+    <class name="game.domain.model.system.System" table="t_system" lazy="true">
         <id name="id" type="java.lang.String" column="id" unsaved-value="null" length="32">
             <generator class="uuid"/>
         </id>

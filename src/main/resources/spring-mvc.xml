@@ -45,7 +45,7 @@
 
 
     <!-- 组件自动扫描 -->
-    <context:component-scan base-package="niuniu.interfaces,niuniu.websocket">
+    <context:component-scan base-package="game.interfaces,game.websocket">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:include-filter type="annotation" expression="javax.websocket.server.ServerEndpoint"/>
     </context:component-scan>

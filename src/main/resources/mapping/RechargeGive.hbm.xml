@@ -3,7 +3,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-access="field">
-    <class name="niuniu.domain.model.recharge.RechargeGive" table="t_recharge_give" lazy="true">
+    <class name="game.domain.model.recharge.RechargeGive" table="t_recharge_give" lazy="true">
         <id name="id" type="java.lang.String" column="id" length="32">
             <generator class="uuid"/>
         </id>

@@ -13,7 +13,7 @@
     </bean>
 
     <!-- 凭证匹配器 -->
-    <bean id="credentialsMatcher" class="niuniu.core.shiro.RetryLimitHashedCredentialsMatcher">
+    <bean id="credentialsMatcher" class="game.core.shiro.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="cacheManager"/>
         <property name="hashAlgorithmName" value="${shiro.hashAlgorithmName}"/>
         <property name="hashIterations" value="${shiro.hashIterations}"/>
@@ -21,7 +21,7 @@
     </bean>
 
     <!-- realm实现 -->
-    <bean id="userRealm" class="niuniu.core.shiro.UserRealm">
+    <bean id="userRealm" class="game.core.shiro.UserRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
         <property name="cachingEnabled" value="false"/>
         <property name="authenticationCachingEnabled" value="true"/>
@@ -50,20 +50,20 @@
     </bean>
 
     <!-- Shiro的Web过滤器 -->
-    <bean id="shiroFilterChainManager" class="niuniu.core.shiro.ShiroFilterChainManager"/>
+    <bean id="shiroFilterChainManager" class="game.core.shiro.ShiroFilterChainManager"/>
 
-    <bean id="filterChainManager" class="niuniu.core.shiro.CustomDefaultFilterChainManager">
+    <bean id="filterChainManager" class="game.core.shiro.CustomDefaultFilterChainManager">
         <property name="loginUrl" value="${shiro.loginUrl}"/>
         <property name="successUrl" value="${shiro.successUrl}"/>
         <property name="unauthorizedUrl" value="${shiro.denied}"/>
     </bean>
 
-    <bean id="filterChainResolver" class="niuniu.core.shiro.CustomPathMatchingFilterChainResolver">
+    <bean id="filterChainResolver" class="game.core.shiro.CustomPathMatchingFilterChainResolver">
         <property name="customDefaultFilterChainManager" ref="filterChainManager"/>
     </bean>
 
     <!--shiro过滤器配置，bean的id值须与web中的filter-name的值相同-->
-    <bean id="shiroFilter" class="niuniu.core.shiro.ShiroFilterFactoryManagerBean">
+    <bean id="shiroFilter" class="game.core.shiro.ShiroFilterFactoryManagerBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="filterChainResolver" ref="filterChainResolver"/>
     </bean>

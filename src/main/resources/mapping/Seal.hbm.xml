@@ -3,7 +3,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-access="field">
-    <class name="niuniu.domain.model.seal.Seal" table="t_seal">
+    <class name="game.domain.model.seal.Seal" table="t_seal">
         <id name="id" type="java.lang.String" column="id" unsaved-value="null" length="32">
             <generator class="uuid"/>
         </id>
@@ -14,7 +14,7 @@
 
         <property name="type" column="type">
             <type name="org.hibernate.type.EnumType">
-                <param name="enumClass">niuniu.core.enums.SealType</param>
+                <param name="enumClass">game.core.enums.SealType</param>
                 <param name="type">4</param>
             </type>
         </property>

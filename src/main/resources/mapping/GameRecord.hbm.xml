@@ -4,7 +4,7 @@
 
 <hibernate-mapping default-access="field">
 
-    <class name="niuniu.domain.model.gamerecord.GameRecord" table="t_gamerecord" lazy="true">
+    <class name="game.domain.model.gamerecord.GameRecord" table="t_gamerecord" lazy="true">
 
         <id name="id" type="java.lang.String" column="id" unsaved-value="null" length="32">
             <generator class="uuid"/>
@@ -22,7 +22,7 @@
 
         <property name="gameType" column="game_type">
             <type name="org.hibernate.type.EnumType">
-                <param name="enumClass">niuniu.core.enums.GameType</param>
+                <param name="enumClass">game.core.enums.GameType</param>
                 <param name="type">4</param>
             </type>
         </property>
