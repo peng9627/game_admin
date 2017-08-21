@@ -1,6 +1,10 @@
 package game.application.gamerecord;
 
-import game.application.gamerecord.command.CreateGameRecordCommand;
+import game.application.gamerecord.command.CreateCommand;
+import game.application.gamerecord.command.ListCommand;
+import game.application.gamerecord.representation.GameRecordRepresentation;
+
+import java.util.List;
 
 /**
  * Created by pengyi
@@ -9,5 +13,7 @@ import game.application.gamerecord.command.CreateGameRecordCommand;
  */
 public interface IGameRecordAppService {
 
-    void create(CreateGameRecordCommand command);
+    void create(CreateCommand command);
+
+    List<GameRecordRepresentation> list(ListCommand command);
 }

@@ -15,7 +15,7 @@ public class GameRecord extends ConcurrencySafeEntity {
 
     private GameType gameType;
     private Integer roomOwner;
-    private Integer[] people;
+    private String people;
     private Integer gameTotal;
     private Integer gameCount;
     private Integer peopleCount;
@@ -38,11 +38,11 @@ public class GameRecord extends ConcurrencySafeEntity {
         this.roomOwner = roomOwner;
     }
 
-    public Integer[] getPeople() {
+    public String getPeople() {
         return people;
     }
 
-    public void setPeople(Integer[] people) {
+    public void setPeople(String people) {
         this.people = people;
     }
 
@@ -89,7 +89,7 @@ public class GameRecord extends ConcurrencySafeEntity {
     public GameRecord() {
     }
 
-    public GameRecord(GameType gameType, Integer roomOwner, Integer[] people, Integer gameTotal, Integer gameCount, Integer peopleCount, Integer roomNo, Blob gameData) {
+    public GameRecord(GameType gameType, Integer roomOwner, String people, Integer gameTotal, Integer gameCount, Integer peopleCount, Integer roomNo, Blob gameData) {
         setCreateDate(new Date());
         this.gameType = gameType;
         this.roomOwner = roomOwner;

@@ -1,7 +1,7 @@
 package game.interfaces.moneydetailed.api;
 
 import game.application.moneydetailed.IMoneyDetailedAppService;
-import game.application.moneydetailed.command.CreateMoneyDetailedCommand;
+import game.application.moneydetailed.command.CreateCommand;
 import game.core.api.ApiResponse;
 import game.core.api.ApiReturnCode;
 import game.core.exception.ApiAuthenticationException;
@@ -32,7 +32,7 @@ public class ApiMoneyDetailedController extends BaseApiController {
     public void create(HttpServletRequest request, HttpServletResponse response) {
         ApiResponse apiResponse;
         try {
-            CreateMoneyDetailedCommand command = this.authenticationAndConvert(request, CreateMoneyDetailedCommand.class);
+            CreateCommand command = this.authenticationAndConvert(request, CreateCommand.class);
 
             moneyDetailedAppService.create(command);
             apiResponse = new ApiResponse(ApiReturnCode.SUCCESS);

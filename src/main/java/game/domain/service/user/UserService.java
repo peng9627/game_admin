@@ -1,6 +1,6 @@
 package game.domain.service.user;
 
-import game.application.user.command.ListUserCommand;
+import game.application.user.command.ListCommand;
 import game.application.user.command.LoginCommand;
 import game.core.enums.EnableStatus;
 import game.core.exception.NoFoundException;
@@ -33,7 +33,7 @@ public class UserService implements IUserService {
 
 
     @Override
-    public Pagination<User> pagination(ListUserCommand command) {
+    public Pagination<User> pagination(ListCommand command) {
         List<Criterion> criterionList = new ArrayList<>();
         Map<String, String> aliasMap = new HashMap<>();
         if (!CoreStringUtils.isEmpty(command.getUserName())) {

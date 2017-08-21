@@ -6,7 +6,7 @@ import game.core.enums.EnableStatus;
 /**
  * Created by pengyi on 2016/4/19.
  */
-public class ListUserCommand extends BasicPaginationCommand {
+public class ListCommand extends BasicPaginationCommand {
 
     private String userName;        //用户名
     private String nickName;        //昵称

@@ -1,7 +1,9 @@
 package game.interfaces.gamerecord.api;
 
 import game.application.gamerecord.IGameRecordAppService;
-import game.application.gamerecord.command.CreateGameRecordCommand;
+import game.application.gamerecord.command.CreateCommand;
+import game.application.gamerecord.command.ListCommand;
+import game.application.gamerecord.representation.GameRecordRepresentation;
 import game.core.api.ApiResponse;
 import game.core.api.ApiReturnCode;
 import game.core.exception.ApiAuthenticationException;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by pengyi
@@ -33,7 +36,7 @@ public class ApiGameRecordController extends BaseApiController {
     public void create(HttpServletRequest request, HttpServletResponse response) {
         ApiResponse apiResponse;
         try {
-            CreateGameRecordCommand command = this.authenticationAndConvert(request, CreateGameRecordCommand.class);
+            CreateCommand command = this.authenticationAndConvert(request, CreateCommand.class);
 
             gameRecordAppService.create(command);
             apiResponse = new ApiResponse(ApiReturnCode.SUCCESS);
@@ -43,6 +46,22 @@ public class ApiGameRecordController extends BaseApiController {
         } catch (Exception e) {
             e.printStackTrace();
             apiResponse = new ApiResponse(ApiReturnCode.ERROR_UNKNOWN);
+        }
+        this.returnData(response, apiResponse);
+    }
+
+    @RequestMapping(value = "/list")
+    public void list(HttpServletRequest request, HttpServletResponse response) {
+        ApiResponse<List<GameRecordRepresentation>> apiResponse;
+        try {
+            ListCommand command = this.authenticationAndConvert(request, ListCommand.class);
+            apiResponse = new ApiResponse<>(ApiReturnCode.SUCCESS, gameRecordAppService.list(command));
+        } catch (ApiAuthenticationException e) {
+            logger.warn(e.getMessage());
+            apiResponse = new ApiResponse<>(ApiReturnCode.AUTHENTICATION_FAILURE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            apiResponse = new ApiResponse<>(ApiReturnCode.ERROR_UNKNOWN);
         }
         this.returnData(response, apiResponse);
     }

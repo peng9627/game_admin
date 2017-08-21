@@ -1,7 +1,7 @@
 package game.domain.service.moneydetailed;
 
-import game.application.moneydetailed.command.CreateMoneyDetailedCommand;
-import game.application.moneydetailed.command.ListMoneyDetailedCommand;
+import game.application.moneydetailed.command.CreateCommand;
+import game.application.moneydetailed.command.ListCommand;
 import game.core.enums.FlowType;
 import game.core.util.CoreDateUtils;
 import game.core.util.CoreStringUtils;
@@ -40,7 +40,7 @@ public class MoneyDetailedService implements IMoneyDetailedService {
     }
 
     @Override
-    public void create(CreateMoneyDetailedCommand command) {
+    public void create(CreateCommand command) {
         User user = userService.searchByUserId(command.getUserId());
 
         if (command.getFlowType() == FlowType.IN_FLOW) {
@@ -65,7 +65,7 @@ public class MoneyDetailedService implements IMoneyDetailedService {
     }
 
     @Override
-    public Pagination<MoneyDetailed> pagination(ListMoneyDetailedCommand command) {
+    public Pagination<MoneyDetailed> pagination(ListCommand command) {
         List<Criterion> criterionList = new ArrayList<>();
         Map<String, String> aliasMap = new HashMap<>();
         if (!CoreStringUtils.isEmpty(command.getUserName())) {

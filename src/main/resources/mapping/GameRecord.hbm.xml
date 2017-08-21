@@ -21,17 +21,7 @@
 
         <property name="roomOwner" column="room_owner" type="java.lang.Integer"/>
 
-        <array name="people" table="t_game_record_people">
-            <key>
-                <column name="game_record"/>
-            </key>
-            <list-index>
-                <column name="list_order"/>
-            </list-index>
-            <element type="java.lang.Integer">
-                <column name="person"/>
-            </element>
-        </array>
+        <property name="people" column="people" type="java.lang.String"/>
 
         <property name="gameTotal" column="game_total" type="java.lang.Integer"/>
 

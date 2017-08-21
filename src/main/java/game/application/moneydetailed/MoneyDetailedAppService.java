@@ -1,7 +1,7 @@
 package game.application.moneydetailed;
 
-import game.application.moneydetailed.command.CreateMoneyDetailedCommand;
-import game.application.moneydetailed.command.ListMoneyDetailedCommand;
+import game.application.moneydetailed.command.CreateCommand;
+import game.application.moneydetailed.command.ListCommand;
 import game.application.moneydetailed.representation.MoneyDetailedRepresentation;
 import game.core.mapping.IMappingService;
 import game.domain.model.moneydetailed.MoneyDetailed;
@@ -34,7 +34,7 @@ public class MoneyDetailedAppService implements IMoneyDetailedAppService {
 
     @Override
     @Transactional(readOnly = true)
-    public Pagination<MoneyDetailedRepresentation> pagination(ListMoneyDetailedCommand command) {
+    public Pagination<MoneyDetailedRepresentation> pagination(ListCommand command) {
         command.verifyPage();
         command.verifyPageSize(25);
         Pagination<MoneyDetailed> pagination = moneyDetailedService.pagination(command);
@@ -43,7 +43,7 @@ public class MoneyDetailedAppService implements IMoneyDetailedAppService {
     }
 
     @Override
-    public void create(CreateMoneyDetailedCommand command) {
+    public void create(CreateCommand command) {
         moneyDetailedService.create(command);
     }
 }

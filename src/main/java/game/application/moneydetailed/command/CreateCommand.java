@@ -5,7 +5,7 @@ import game.core.enums.FlowType;
 /**
  * Created by pengyi on 16-7-11.
  */
-public class CreateMoneyDetailedCommand {
+public class CreateCommand {
 
     private int userId;
     private int money;

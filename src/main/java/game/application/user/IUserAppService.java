@@ -1,6 +1,6 @@
 package game.application.user;
 
-import game.application.user.command.ListUserCommand;
+import game.application.user.command.ListCommand;
 import game.application.user.command.LoginCommand;
 import game.application.user.representation.UserRepresentation;
 import game.infrastructure.persistence.hibernate.generic.Pagination;
@@ -11,7 +11,7 @@ import game.infrastructure.persistence.hibernate.generic.Pagination;
  */
 public interface IUserAppService {
 
-    Pagination<UserRepresentation> pagination(ListUserCommand command);
+    Pagination<UserRepresentation> pagination(ListCommand command);
 
     UserRepresentation searchByID(String id);
 

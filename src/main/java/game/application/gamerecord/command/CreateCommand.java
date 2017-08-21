@@ -7,11 +7,11 @@ import game.core.enums.GameType;
  * Date : 17-8-21.
  * desc:
  */
-public class CreateGameRecordCommand {
+public class CreateCommand {
 
     private GameType gameType;
     private Integer roomOwner;
-    private Integer[] people;
+    private String people;
     private Integer gameTotal;
     private Integer gameCount;
     private Integer peopleCount;
@@ -34,11 +34,11 @@ public class CreateGameRecordCommand {
         this.roomOwner = roomOwner;
     }
 
-    public Integer[] getPeople() {
+    public String getPeople() {
         return people;
     }
 
-    public void setPeople(Integer[] people) {
+    public void setPeople(String people) {
         this.people = people;
     }
 

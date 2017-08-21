@@ -1,6 +1,6 @@
 package game.application.user;
 
-import game.application.user.command.ListUserCommand;
+import game.application.user.command.ListCommand;
 import game.application.user.command.LoginCommand;
 import game.application.user.representation.UserRepresentation;
 import game.core.mapping.IMappingService;
@@ -34,7 +34,7 @@ public class UserAppService implements IUserAppService {
 
     @Override
     @Transactional(readOnly = true)
-    public Pagination<UserRepresentation> pagination(ListUserCommand command) {
+    public Pagination<UserRepresentation> pagination(ListCommand command) {
         command.verifyPage();
         command.verifyPageSize(25);
         Pagination<User> pagination = userService.pagination(command);

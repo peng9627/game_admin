@@ -1,7 +1,7 @@
 package game.domain.service.moneydetailed;
 
-import game.application.moneydetailed.command.CreateMoneyDetailedCommand;
-import game.application.moneydetailed.command.ListMoneyDetailedCommand;
+import game.application.moneydetailed.command.CreateCommand;
+import game.application.moneydetailed.command.ListCommand;
 import game.domain.model.moneydetailed.MoneyDetailed;
 import game.infrastructure.persistence.hibernate.generic.Pagination;
 
@@ -11,8 +11,8 @@ import game.infrastructure.persistence.hibernate.generic.Pagination;
  */
 public interface IMoneyDetailedService {
 
-    void create(CreateMoneyDetailedCommand command);
+    void create(CreateCommand command);
 
-    Pagination<MoneyDetailed> pagination(ListMoneyDetailedCommand command);
+    Pagination<MoneyDetailed> pagination(ListCommand command);
 
 }

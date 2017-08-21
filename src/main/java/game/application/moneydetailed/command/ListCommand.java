@@ -7,7 +7,7 @@ import game.core.enums.FlowType;
  * Created by pengyi
  * Date : 16-7-19.
  */
-public class ListMoneyDetailedCommand extends BasicPaginationCommand {
+public class ListCommand extends BasicPaginationCommand {
 
     private String userName;
     private FlowType flowType;

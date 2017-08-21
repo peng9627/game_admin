@@ -1,6 +1,10 @@
 package game.domain.service.gamerecord;
 
-import game.application.gamerecord.command.CreateGameRecordCommand;
+import game.application.gamerecord.command.CreateCommand;
+import game.application.gamerecord.command.ListCommand;
+import game.domain.model.gamerecord.GameRecord;
+
+import java.util.List;
 
 /**
  * Created by pengyi
@@ -9,5 +13,7 @@ import game.application.gamerecord.command.CreateGameRecordCommand;
  */
 public interface IGameRecordService {
 
-    void create(CreateGameRecordCommand command);
+    void create(CreateCommand command);
+
+    List<GameRecord> list(ListCommand command);
 }

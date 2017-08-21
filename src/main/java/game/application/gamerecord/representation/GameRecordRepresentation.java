@@ -17,7 +17,7 @@ public class GameRecordRepresentation {
 
     private GameType gameType;
     private Integer roomOwner;
-    private Integer[] people;
+    private String people;
     private Integer gameTotal;
     private Integer gameCount;
     private Integer peopleCount;
@@ -64,11 +64,11 @@ public class GameRecordRepresentation {
         this.roomOwner = roomOwner;
     }
 
-    public Integer[] getPeople() {
+    public String getPeople() {
         return people;
     }
 
-    public void setPeople(Integer[] people) {
+    public void setPeople(String people) {
         this.people = people;
     }
 
