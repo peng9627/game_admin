@@ -1,16 +1,15 @@
 package game.core.enums;
 
 /**
- * Created by pengyi on 16-7-5.
+ * Created by pengyi on 16-9-5.
  */
-public enum GameType {
+public enum ClientAgent {
 
-    XINGNING_MAHJONG("兴宁麻将", 1),
-    RUN_QUICKLY("跑得快", 2),
-    RUIJIN_MAHJONG("瑞金麻将", 3),
-    SANGONG("三公", 4);
+    ANDROID("安卓", 1),
+    IOS("ios", 2),
+    PC("pc", 2);
 
-    GameType(String name, int value) {
+    ClientAgent(String name, int value) {
         this.name = name;
         this.value = value;
     }

@@ -1,6 +1,7 @@
 package game.infrastructure.persistence.hibernate.generic;
 
 import org.hibernate.FetchMode;
+import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
@@ -51,4 +52,6 @@ public interface IHibernateGenericRepository<T, ID extends Serializable> {
 
     List<T> list(List<Criterion> criteria, List<Order> orders, ProjectionList projectionList,
                  Map<String, FetchMode> fetchModeMap, Map<String, String> alias, int max);
+
+    Session getSession();
 }

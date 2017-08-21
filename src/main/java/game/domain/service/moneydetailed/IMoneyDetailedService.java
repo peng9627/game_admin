@@ -15,5 +15,4 @@ public interface IMoneyDetailedService {
 
     Pagination<MoneyDetailed> pagination(ListMoneyDetailedCommand command);
 
-    boolean receiveTask(ListMoneyDetailedCommand command);
 }

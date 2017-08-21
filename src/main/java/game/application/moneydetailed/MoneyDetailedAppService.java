@@ -43,11 +43,6 @@ public class MoneyDetailedAppService implements IMoneyDetailedAppService {
     }
 
     @Override
-    public boolean receiveTask(ListMoneyDetailedCommand command) {
-        return moneyDetailedService.receiveTask(command);
-    }
-
-    @Override
     public void create(CreateMoneyDetailedCommand command) {
         moneyDetailedService.create(command);
     }

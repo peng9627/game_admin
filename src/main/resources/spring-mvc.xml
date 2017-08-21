@@ -45,9 +45,8 @@
 
 
     <!-- 组件自动扫描 -->
-    <context:component-scan base-package="game.interfaces,game.websocket">
+    <context:component-scan base-package="game.interfaces">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:include-filter type="annotation" expression="javax.websocket.server.ServerEndpoint"/>
     </context:component-scan>
 
     <!--主要作用于@Controller激活该模式下面是一种简写形式

@@ -1,67 +1,77 @@
 package game.domain.model.user;
 
-import game.core.enums.EnableStatus;
+import game.core.enums.ClientAgent;
 import game.core.enums.Sex;
-import game.domain.model.account.Account;
-import game.domain.model.role.Role;
+import game.core.id.ConcurrencySafeEntity;
 
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 用户
  * Created by pengyi on 2016/4/15.
  */
-public class User extends Account {
+public class User extends ConcurrencySafeEntity {
 
-    private User parent;                //父级用户
-    private String name;                //网名
-    private BigDecimal money;           //金币
+    private Integer userId;             //用户id
+    private String nickname;            //网名
+    private String head;                //头像
+    private ClientAgent agent;          //终端
+    private Long money;                 //房卡
     private Sex sex;
-    private String deviceNo;            //设备号
-    private Boolean vip;                //是否vip
-    private String phoneNo;             //手机号
-    private BigDecimal spreadCanGet;    //推荐可领取
-    private Integer ranking;            //排行
-    private BigDecimal spreadGetted;     //推荐领取过
-    private String inviteCode;           //邀请码
-    private String weChatNo;        //微信号
-    private BigDecimal gold;        //金币
-    private Integer days;           //连续登陆天数
-    private Integer reward;         //连续登陆奖励剩余领取次数
-    private Integer benefit;        //补助剩余领取次数
+    private String weChatNo;            //微信号
+    private String registerIp;          //注册ip
+    private String lastLoginIp;         //上次登陆ip
+    private String area;                //地方
+    private Long gameCount;             //游戏局数
+    private Date lastLoginDate;         //上次登陆时间
+    private Boolean status;             //状态
 
-    public Integer getReward() {
-        return reward;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setReward(Integer reward) {
-        this.reward = reward;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Integer getBenefit() {
-        return benefit;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setBenefit(Integer benefit) {
-        this.benefit = benefit;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public Integer getDays() {
-        return days;
+    public String getHead() {
+        return head;
     }
 
-    public void setDays(Integer days) {
-        this.days = days;
+    public void setHead(String head) {
+        this.head = head;
     }
 
-    public BigDecimal getGold() {
-        return gold;
+    public ClientAgent getAgent() {
+        return agent;
     }
 
-    public void setGold(BigDecimal gold) {
-        this.gold = gold;
+    public void setAgent(ClientAgent agent) {
+        this.agent = agent;
+    }
+
+    public long getMoney() {
+        return money;
+    }
+
+    public void setMoney(long money) {
+        this.money = money;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
     }
 
     public String getWeChatNo() {
@@ -72,146 +82,68 @@ public class User extends Account {
         this.weChatNo = weChatNo;
     }
 
-    public String getInviteCode() {
-        return inviteCode;
+    public String getRegisterIp() {
+        return registerIp;
     }
 
-    public void setInviteCode(String inviteCode) {
-        this.inviteCode = inviteCode;
+    public void setRegisterIp(String registerIp) {
+        this.registerIp = registerIp;
     }
 
-    public void changeVip(boolean vip) {
-        this.vip = vip;
+    public String getLastLoginIp() {
+        return lastLoginIp;
     }
 
-    private void setParent(User parent) {
-        this.parent = parent;
+    public void setLastLoginIp(String lastLoginIp) {
+        this.lastLoginIp = lastLoginIp;
     }
 
-    private void setName(String name) {
-        this.name = name;
+    public String getArea() {
+        return area;
     }
 
-    private void setMoney(BigDecimal money) {
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public Long getGameCount() {
+        return gameCount;
+    }
+
+    public void setGameCount(Long gameCount) {
+        this.gameCount = gameCount;
+    }
+
+    public void setMoney(Long money) {
         this.money = money;
     }
 
-    private void setSex(Sex sex) {
-        this.sex = sex;
+    public Date getLastLoginDate() {
+        return lastLoginDate;
     }
 
-    private void setDeviceNo(String deviceNo) {
-        this.deviceNo = deviceNo;
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
     }
 
-    private void setVip(Boolean vip) {
-        this.vip = vip;
+    public Boolean getStatus() {
+        return status;
     }
 
-    private void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    private void setRanking(Integer ranking) {
-        this.ranking = ranking;
-    }
-
-    private void setSpreadCanGet(BigDecimal spreadCanGet) {
-        this.spreadCanGet = spreadCanGet;
-    }
-
-    private void setSpreadGetted(BigDecimal spreadGeted) {
-        this.spreadGetted = spreadGeted;
-    }
-
-    public User getParent() {
-        return parent;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public BigDecimal getMoney() {
-        return money;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public String getDeviceNo() {
-        return deviceNo;
-    }
-
-    public Boolean getVip() {
-        return vip;
-    }
-
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public Integer getRanking() {
-        return ranking;
-    }
-
-    public BigDecimal getSpreadCanGet() {
-        return spreadCanGet;
-    }
-
-    public BigDecimal getSpreadGetted() {
-        return spreadGetted;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public User() {
-        super();
     }
 
-    public User(String token, String head, Sex sex, String userName, String password, String salt, String lastLoginIP, Date lastLoginDate, String lastLoginPlatform,
-                List<Role> roles, EnableStatus status, String name, String deviceNo) {
-        super(token, head, userName, password, salt, lastLoginIP, lastLoginDate, lastLoginPlatform, roles, status);
-        this.sex = sex;
-        this.name = name;
-        this.money = BigDecimal.ZERO;
-        this.gold = BigDecimal.valueOf(10000);
-        this.deviceNo = deviceNo;
-        this.vip = false;
-        this.setCreateDate(new Date());
-        this.ranking = 10000;
-        this.spreadCanGet = BigDecimal.ZERO;
-        this.spreadGetted = BigDecimal.ZERO;
-    }
-
-    public void changeParent(User parent) {
-        this.parent = parent;
-    }
-
-    public void changeName(String name) {
-        this.name = name;
-    }
-
-    public void changeSex(Sex sex) {
-        this.sex = sex;
-    }
-
-    public void changeMoney(BigDecimal money) {
-        this.money = money;
-    }
-
-    public void changePhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    public void changeRanking(Integer ranking) {
-        this.ranking = ranking;
-    }
-
-    public void changeSpreadCanGet(BigDecimal spreadCanGet) {
-        this.spreadCanGet = spreadCanGet;
-    }
-
-    public void changeSpreadGetted(BigDecimal spreadGeted) {
-        this.spreadGetted = spreadGeted;
+    public User(Integer userId, String weChatNo) {
+        setCreateDate(new Date());
+        this.userId = userId;
+        this.weChatNo = weChatNo;
+        this.money = 0L;
+        this.gameCount = 0L;
+        this.lastLoginDate = new Date();
+        this.status = true;
     }
 }

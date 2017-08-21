@@ -1,13 +1,9 @@
 package game.application.user;
 
-import game.application.auth.command.LoginCommand;
-import game.application.shared.command.SharedCommand;
-import game.application.user.command.*;
-import game.application.user.representation.ApiUserRepresentation;
+import game.application.user.command.ListUserCommand;
+import game.application.user.command.LoginCommand;
 import game.application.user.representation.UserRepresentation;
 import game.infrastructure.persistence.hibernate.generic.Pagination;
-
-import java.math.BigDecimal;
 
 /**
  * Created by pengyi
@@ -19,33 +15,7 @@ public interface IUserAppService {
 
     UserRepresentation searchByID(String id);
 
-    UserRepresentation create(CreateUserCommand command);
+    UserRepresentation info(int userId);
 
-    UserRepresentation edit(EditUserCommand command);
-
-    void addMoney(MoneyCommand command);
-
-    void subtractMoney(MoneyCommand command);
-
-    void updateVip(SharedCommand command);
-
-    void register(CreateUserCommand command);
-
-    void updateRanking();
-
-    BigDecimal totalMoney(ListUserCommand command);
-
-    ApiUserRepresentation login(LoginCommand command);
-
-    ApiUserRepresentation weChatLogin(LoginCommand command);
-
-    ApiUserRepresentation info(String username);
-
-    void bindInviteCode(InviteCodeCommand command);
-
-    String searchIdByToken(String token);
-
-    BigDecimal receiveGold(String userName);
-
-    BigDecimal receiveBenefit(String userName);
+    UserRepresentation weChatLogin(LoginCommand command);
 }

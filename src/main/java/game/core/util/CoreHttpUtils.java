@@ -1,16 +1,9 @@
 package game.core.util;
 
-import game.application.account.representation.AccountRepresentation;
-import game.application.auth.command.LoginCommand;
 import game.core.common.CharsetConstant;
-import game.core.common.Constants;
-import game.core.exception.NoLoginException;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.session.Session;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -77,51 +70,6 @@ public class CoreHttpUtils {
             return LoginPlatform.LINUX.getName();
         }
         return null;
-    }
-
-    /**
-     * 保存用户cookie
-     *
-     * @param command
-     * @param request
-     * @param response
-     */
-    public static void writeCookie(LoginCommand command, HttpServletRequest request, HttpServletResponse response) {
-        if (command.isRememberMe()) {
-            String encryptStr = command.getUserName() + "," + command.getPassword();
-            Cookie cookie = new Cookie(Constants.COOKIE_USER, CoreRc4Utils.encry_RC4_string(encryptStr, Constants.PASSWORD_ENCRYP_KEY));
-            cookie.setMaxAge(604800);
-            response.addCookie(cookie);
-        } else {
-            clearCookie(request, response);
-        }
-    }
-
-    /**
-     * 移除用户保存的cookie
-     *
-     * @param request
-     * @param response
-     */
-    public static void clearCookie(HttpServletRequest request, HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-        if (null != cookies && cookies.length > 0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(Constants.COOKIE_USER)) {
-                    cookie.setMaxAge(0);
-                    response.addCookie(cookie);
-                    break;
-                }
-            }
-        }
-    }
-
-    public static AccountRepresentation getSessionAccount(Session session) {
-        AccountRepresentation account = (AccountRepresentation) session.getAttribute(Constants.SESSION_USER);
-        if (null == account) {
-            throw new NoLoginException("没有登录");
-        }
-        return account;
     }
 
     public static String urlConnection(String url, String pa) {

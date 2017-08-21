@@ -1,9 +1,7 @@
 package game.application.moneydetailed.representation;
 
-import game.application.user.representation.UserRepresentation;
 import game.core.enums.FlowType;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -15,12 +13,13 @@ public class MoneyDetailedRepresentation {
     private Integer version;
     private Date createDate;
 
-    private UserRepresentation user;      //用户
+    private int userId;         //用户id
+    private String nickname;    //用户昵称
     private FlowType flowType;  //资金流向类型
-    private BigDecimal money;   //金额
-    private String description;     //说明（）
-    private BigDecimal oldMoney;    //原有金额
-    private BigDecimal newMoney;    //现有金额
+    private int money;          //金额
+    private String description; //说明（）
+    private Long oldMoney;      //原有金额
+    private Long newMoney;      //现有金额
 
     public String getId() {
         return id;
@@ -46,12 +45,20 @@ public class MoneyDetailedRepresentation {
         this.createDate = createDate;
     }
 
-    public UserRepresentation getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(UserRepresentation user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public FlowType getFlowType() {
@@ -62,11 +69,11 @@ public class MoneyDetailedRepresentation {
         this.flowType = flowType;
     }
 
-    public BigDecimal getMoney() {
+    public int getMoney() {
         return money;
     }
 
-    public void setMoney(BigDecimal money) {
+    public void setMoney(int money) {
         this.money = money;
     }
 
@@ -78,19 +85,19 @@ public class MoneyDetailedRepresentation {
         this.description = description;
     }
 
-    public BigDecimal getOldMoney() {
+    public Long getOldMoney() {
         return oldMoney;
     }
 
-    public void setOldMoney(BigDecimal oldMoney) {
+    public void setOldMoney(Long oldMoney) {
         this.oldMoney = oldMoney;
     }
 
-    public BigDecimal getNewMoney() {
+    public Long getNewMoney() {
         return newMoney;
     }
 
-    public void setNewMoney(BigDecimal newMoney) {
+    public void setNewMoney(Long newMoney) {
         this.newMoney = newMoney;
     }
 }

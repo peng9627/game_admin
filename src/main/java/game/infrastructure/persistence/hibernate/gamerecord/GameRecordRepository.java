@@ -6,10 +6,11 @@ import game.infrastructure.persistence.hibernate.generic.AbstractHibernateGeneri
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by zhangjin on 2017/6/1.
+ * Created by pengyi
+ * Date : 17-8-21.
+ * desc:
  */
 @Repository("gameRecordRepository")
 public class GameRecordRepository extends AbstractHibernateGenericRepository<GameRecord, String>
         implements IGameRecordRepository<GameRecord, String> {
-
 }

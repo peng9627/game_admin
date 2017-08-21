@@ -12,7 +12,7 @@
         <property name="fileEncodings" value="utf-8"/>
         <property name="cacheSeconds" value="120"/>
     </bean>
-
+    <bean id="mappingService" class="game.core.mapping.MappingService"/>
     <context:property-placeholder file-encoding="utf-8" location="classpath:config.properties"/>
 
     <context:component-scan base-package="game">
@@ -21,15 +21,5 @@
     </context:component-scan>
 
     <import resource="spring-persistence.xml"/>
-    <import resource="spring-shiro.xml"/>
-    <import resource="spring-config.xml"/>
-    <import resource="spring-redis.xml"/>
-    <import resource="spring-freemarker.xml"/>
-    <import resource="spring-upload.xml"/>
 
-    <bean id="idFactory" class="game.core.common.id.IdFactory" init-method="initSequence">
-        <property name="prefix" value="${idFactory.prefix}"/>
-        <property name="suffixLength" value="${idFactory.suffixLength}"/>
-        <property name="sequenceAppService" ref="sequenceAppService"/>
-    </bean>
 </beans>

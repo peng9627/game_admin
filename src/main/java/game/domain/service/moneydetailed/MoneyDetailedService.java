@@ -10,7 +10,6 @@ import game.domain.model.moneydetailed.MoneyDetailed;
 import game.domain.model.user.User;
 import game.domain.service.user.IUserService;
 import game.infrastructure.persistence.hibernate.generic.Pagination;
-import org.hibernate.LockMode;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -18,8 +17,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by pengyi
@@ -30,31 +31,31 @@ public class MoneyDetailedService implements IMoneyDetailedService {
 
     private final IMoneyDetailedRepository<MoneyDetailed, String> moneyDetailedRepository;
 
-    private final IUserService userService;
+    @Autowired
+    private IUserService userService;
 
     @Autowired
-    public MoneyDetailedService(IUserService userService, IMoneyDetailedRepository<MoneyDetailed, String> moneyDetailedRepository) {
-        this.userService = userService;
+    public MoneyDetailedService(IMoneyDetailedRepository<MoneyDetailed, String> moneyDetailedRepository) {
         this.moneyDetailedRepository = moneyDetailedRepository;
     }
 
     @Override
     public void create(CreateMoneyDetailedCommand command) {
-        User user = userService.searchByName(command.getUserName(), LockMode.READ);
+        User user = userService.searchByUserId(command.getUserId());
 
         if (command.getFlowType() == FlowType.IN_FLOW) {
-            BigDecimal oldMoney = user.getMoney();
+            long oldMoney = user.getMoney();
 
-            user.changeMoney(user.getMoney().add(command.getMoney()));
+            user.setMoney(user.getMoney() + command.getMoney());
 
             userService.update(user);
 
             MoneyDetailed moneyDetailed = new MoneyDetailed(user, command.getFlowType(), command.getMoney(), command.getDescription(), oldMoney, user.getMoney());
             moneyDetailedRepository.save(moneyDetailed);
         } else {
-            BigDecimal oldMoney = user.getMoney();
+            Long oldMoney = user.getMoney();
 
-            user.changeMoney(user.getMoney().subtract(command.getMoney()));
+            user.setMoney(user.getMoney() - command.getMoney());
 
             userService.update(user);
 
@@ -85,16 +86,4 @@ public class MoneyDetailedService implements IMoneyDetailedService {
         return moneyDetailedRepository.pagination(command.getPage(), command.getPageSize(), criterionList, aliasMap, orderList, null);
     }
 
-    @Override
-    public boolean receiveTask(ListMoneyDetailedCommand command) {
-
-        List<Criterion> criterionList = new ArrayList<>();
-        Map<String, String> aliasMap = new HashMap<>();
-        criterionList.add(Restrictions.eq("user.userName", command.getUserName()));
-        aliasMap.put("user", "user");
-        criterionList.add(Restrictions.ge("createDate", CoreDateUtils.parseDateStart(CoreDateUtils.formatDate(new Date(), "yyyy-MM-dd"))));
-        criterionList.add(Restrictions.le("createDate", CoreDateUtils.parseDateEnd(CoreDateUtils.formatDate(new Date(), "yyyy-MM-dd"))));
-        criterionList.add(Restrictions.eq("description", command.getDescription()));
-        return moneyDetailedRepository.list(criterionList, null, null, null, aliasMap).size() > 0;
-    }
 }

@@ -2,7 +2,6 @@ package game.interfaces.moneydetailed.api;
 
 import game.application.moneydetailed.IMoneyDetailedAppService;
 import game.application.moneydetailed.command.CreateMoneyDetailedCommand;
-import game.application.user.representation.ApiUserRepresentation;
 import game.core.api.ApiResponse;
 import game.core.api.ApiReturnCode;
 import game.core.exception.ApiAuthenticationException;
@@ -31,18 +30,18 @@ public class ApiMoneyDetailedController extends BaseApiController {
 
     @RequestMapping(value = "/create")
     public void create(HttpServletRequest request, HttpServletResponse response) {
-        ApiResponse<ApiUserRepresentation> apiResponse;
+        ApiResponse apiResponse;
         try {
             CreateMoneyDetailedCommand command = this.authenticationAndConvert(request, CreateMoneyDetailedCommand.class);
 
             moneyDetailedAppService.create(command);
-            apiResponse = new ApiResponse<>(ApiReturnCode.SUCCESS);
+            apiResponse = new ApiResponse(ApiReturnCode.SUCCESS);
         } catch (ApiAuthenticationException e) {
             logger.warn(e.getMessage());
-            apiResponse = new ApiResponse<>(ApiReturnCode.AUTHENTICATION_FAILURE);
+            apiResponse = new ApiResponse(ApiReturnCode.AUTHENTICATION_FAILURE);
         } catch (Exception e) {
             e.printStackTrace();
-            apiResponse = new ApiResponse<>(ApiReturnCode.ERROR_UNKNOWN);
+            apiResponse = new ApiResponse(ApiReturnCode.ERROR_UNKNOWN);
         }
         this.returnData(response, apiResponse);
     }

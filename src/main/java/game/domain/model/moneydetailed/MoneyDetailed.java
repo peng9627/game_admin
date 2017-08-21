@@ -4,7 +4,6 @@ import game.core.enums.FlowType;
 import game.core.id.ConcurrencySafeEntity;
 import game.domain.model.user.User;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -12,12 +11,12 @@ import java.util.Date;
  */
 public class MoneyDetailed extends ConcurrencySafeEntity {
 
-    private User user;      //用户
-    private FlowType flowType;  //资金流向类型
-    private BigDecimal money;   //金额
-    private String description;     //说明（）
-    private BigDecimal oldMoney;    //原有金额
-    private BigDecimal newMoney;    //现有金额
+    private User user;                  //用户
+    private FlowType flowType;          //资金流向类型
+    private int money;                  //金额
+    private String description;         //说明（）
+    private Long oldMoney;              //原有金额
+    private Long newMoney;              //现有金额
 
     private void setUser(User user) {
         this.user = user;
@@ -25,22 +24,6 @@ public class MoneyDetailed extends ConcurrencySafeEntity {
 
     private void setFlowType(FlowType flowType) {
         this.flowType = flowType;
-    }
-
-    private void setMoney(BigDecimal money) {
-        this.money = money;
-    }
-
-    private void setDescription(String description) {
-        this.description = description;
-    }
-
-    private void setOldMoney(BigDecimal oldMoney) {
-        this.oldMoney = oldMoney;
-    }
-
-    private void setNewMoney(BigDecimal newMoney) {
-        this.newMoney = newMoney;
     }
 
     public User getUser() {
@@ -51,27 +34,43 @@ public class MoneyDetailed extends ConcurrencySafeEntity {
         return flowType;
     }
 
-    public BigDecimal getMoney() {
+    public int getMoney() {
         return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public BigDecimal getOldMoney() {
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getOldMoney() {
         return oldMoney;
     }
 
-    public BigDecimal getNewMoney() {
+    public void setOldMoney(Long oldMoney) {
+        this.oldMoney = oldMoney;
+    }
+
+    public Long getNewMoney() {
         return newMoney;
+    }
+
+    public void setNewMoney(Long newMoney) {
+        this.newMoney = newMoney;
     }
 
     public MoneyDetailed() {
         super();
     }
 
-    public MoneyDetailed(User user, FlowType flowType, BigDecimal money, String description, BigDecimal oldMoney, BigDecimal newMoney) {
+    public MoneyDetailed(User user, FlowType flowType, int money, String description, Long oldMoney, Long newMoney) {
         this.user = user;
         this.flowType = flowType;
         this.money = money;

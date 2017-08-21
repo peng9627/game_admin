@@ -4,9 +4,7 @@ import game.domain.model.user.IUserRepository;
 import game.domain.model.user.User;
 import game.infrastructure.persistence.hibernate.generic.AbstractHibernateGenericRepository;
 import org.hibernate.Criteria;
-import org.hibernate.LockMode;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -20,32 +18,6 @@ import java.util.List;
 @Repository("userRepository")
 public class UserRepository extends AbstractHibernateGenericRepository<User, String>
         implements IUserRepository<User, String> {
-    @Override
-    public User searchByName(String userName) {
-        Criteria criteria = getSession().createCriteria(this.getPersistentClass());
-        criteria.add(Restrictions.eq("userName", userName));
-        return (User) criteria.uniqueResult();
-    }
-
-    @Override
-    public User searchByName(String userName, LockMode lockMode) {
-        Criteria criteria = getSession().createCriteria(this.getPersistentClass());
-        criteria.add(Restrictions.eq("userName", userName));
-        criteria.setLockMode(lockMode);
-        return (User) criteria.uniqueResult();
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<User> searchByDeviceNo(String deviceNo) {
-        Criteria criteria = getSession().createCriteria(this.getPersistentClass());
-        criteria.add(Restrictions.eq("deviceNo", deviceNo));
-
-//        criteria.add(Restrictions.like("userName", "游客", MatchMode.ANYWHERE));
-
-        criteria.addOrder(Order.desc("createDate"));
-        return criteria.list();
-    }
 
     @Override
     public BigDecimal totalMoney(List<Criterion> criterionList) {
@@ -60,9 +32,16 @@ public class UserRepository extends AbstractHibernateGenericRepository<User, Str
     }
 
     @Override
-    public User searchByToken(String token) {
+    public User searchByUserId(int userId) {
         Criteria criteria = getSession().createCriteria(this.getPersistentClass());
-        criteria.add(Restrictions.eq("token", token));
+        criteria.add(Restrictions.eq("userId", userId));
+        return (User) criteria.uniqueResult();
+    }
+
+    @Override
+    public User searchByWechat(String wechat) {
+        Criteria criteria = getSession().createCriteria(this.getPersistentClass());
+        criteria.add(Restrictions.eq("weChatNo", wechat));
         return (User) criteria.uniqueResult();
     }
 

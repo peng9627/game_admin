@@ -2,31 +2,29 @@ package game.application.moneydetailed.command;
 
 import game.core.enums.FlowType;
 
-import java.math.BigDecimal;
-
 /**
  * Created by pengyi on 16-7-11.
  */
 public class CreateMoneyDetailedCommand {
 
-    private String userName;
-    private BigDecimal money;
+    private int userId;
+    private int money;
     private FlowType flowType;  //资金流向类型
     private String description;     //说明
 
-    public String getUserName() {
-        return userName;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public BigDecimal getMoney() {
+    public int getMoney() {
         return money;
     }
 
-    public void setMoney(BigDecimal money) {
+    public void setMoney(int money) {
         this.money = money;
     }
 

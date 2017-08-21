@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+    <class name="game.domain.model.user.User" table="t_user" lazy="true">
+        <id name="id" type="java.lang.String" column="id" unsaved-value="null" length="32">
+            <generator class="uuid"/>
+        </id>
+
+        <version column="version" name="version" type="java.lang.Integer"/>
+
+        <property name="createDate" column="create_date" type="java.util.Date"/>
+
+        <property name="userId" column="user_id" type="java.lang.Integer"/>
+
+        <property name="nickname" column="nickname" type="java.lang.String"/>
+
+        <property name="head" column="head" type="java.lang.String"/>
+
+        <property name="agent" column="agent">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">game.core.enums.ClientAgent</param>
+                <param name="type">4</param>
+            </type>
+        </property>
+
+        <property name="money" column="money" type="java.lang.Long" scale="2"/>
+
+        <property name="sex" column="sex">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">game.core.enums.Sex</param>
+                <param name="type">4</param>
+            </type>
+        </property>
+
+        <property name="weChatNo" column="wechat_no" type="java.lang.String"/>
+
+        <property name="registerIp" column="register_ip" type="java.lang.String"/>
+
+        <property name="lastLoginIp" column="lastLogin_ip" type="java.lang.String"/>
+
+        <property name="area" column="area" type="java.lang.String"/>
+
+        <property name="gameCount" column="game_count" type="java.lang.Long"/>
+
+        <property name="lastLoginDate" column="last_login_date" type="java.util.Date"/>
+
+        <property name="status" column="status" type="java.lang.Boolean"/>
+
+    </class>
+</hibernate-mapping>

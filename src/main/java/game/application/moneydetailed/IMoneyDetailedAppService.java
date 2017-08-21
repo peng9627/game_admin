@@ -12,7 +12,5 @@ import game.infrastructure.persistence.hibernate.generic.Pagination;
 public interface IMoneyDetailedAppService {
     Pagination<MoneyDetailedRepresentation> pagination(ListMoneyDetailedCommand command);
 
-    boolean receiveTask(ListMoneyDetailedCommand command);
-
     void create(CreateMoneyDetailedCommand command);
 }

@@ -3,44 +3,24 @@ package game.domain.model.gamerecord;
 import game.core.enums.GameType;
 import game.core.id.ConcurrencySafeEntity;
 
+import java.sql.Blob;
+import java.util.Date;
+
 /**
- * Author pengyi
- * Date 17-6-1.
+ * Created by pengyi
+ * Date : 17-8-19.
+ * desc:
  */
 public class GameRecord extends ConcurrencySafeEntity {
 
-    private String userNames;
-    private int baseScore;
     private GameType gameType;
-    private String roomOwner;//房主
-    private int totalRound;//总局数
-
-    private int roomNo;//桌号
-    private int rule;//规则
-    private boolean doubleBull;//对子牛
-    private boolean spottedBull;//五花牛
-    private boolean bombBull;//炸弹牛
-    private boolean smallBull;//五小牛
-    private boolean playerPush;//闲家推注
-    private boolean startedInto;//游戏开始后加入
-    private String gameInfo;
-
-
-    public String getUserNames() {
-        return userNames;
-    }
-
-    public void setUserNames(String userNames) {
-        this.userNames = userNames;
-    }
-
-    public int getBaseScore() {
-        return baseScore;
-    }
-
-    public void setBaseScore(int baseScore) {
-        this.baseScore = baseScore;
-    }
+    private Integer roomOwner;
+    private Integer[] people;
+    private Integer gameTotal;
+    private Integer gameCount;
+    private Integer peopleCount;
+    private Integer roomNo;
+    private Blob gameData;
 
     public GameType getGameType() {
         return gameType;
@@ -50,91 +30,74 @@ public class GameRecord extends ConcurrencySafeEntity {
         this.gameType = gameType;
     }
 
-    public int getRoomNo() {
-        return roomNo;
-    }
-
-    public void setRoomNo(int roomNo) {
-        this.roomNo = roomNo;
-    }
-
-    public String getRoomOwner() {
+    public Integer getRoomOwner() {
         return roomOwner;
     }
 
-    public void setRoomOwner(String roomOwner) {
+    public void setRoomOwner(Integer roomOwner) {
         this.roomOwner = roomOwner;
     }
 
-    public int getTotalRound() {
-        return totalRound;
+    public Integer[] getPeople() {
+        return people;
     }
 
-    public void setTotalRound(int totalRound) {
-        this.totalRound = totalRound;
+    public void setPeople(Integer[] people) {
+        this.people = people;
     }
 
-    public int getRule() {
-        return rule;
+    public Integer getGameTotal() {
+        return gameTotal;
     }
 
-    public void setRule(int rule) {
-        this.rule = rule;
+    public void setGameTotal(Integer gameTotal) {
+        this.gameTotal = gameTotal;
     }
 
-    public boolean isDoubleBull() {
-        return doubleBull;
+    public Integer getGameCount() {
+        return gameCount;
     }
 
-    public void setDoubleBull(boolean doubleBull) {
-        this.doubleBull = doubleBull;
+    public void setGameCount(Integer gameCount) {
+        this.gameCount = gameCount;
     }
 
-    public boolean isSpottedBull() {
-        return spottedBull;
+    public Integer getPeopleCount() {
+        return peopleCount;
     }
 
-    public void setSpottedBull(boolean spottedBull) {
-        this.spottedBull = spottedBull;
+    public void setPeopleCount(Integer peopleCount) {
+        this.peopleCount = peopleCount;
     }
 
-    public boolean isBombBull() {
-        return bombBull;
+    public Integer getRoomNo() {
+        return roomNo;
     }
 
-    public void setBombBull(boolean bombBull) {
-        this.bombBull = bombBull;
+    public void setRoomNo(Integer roomNo) {
+        this.roomNo = roomNo;
     }
 
-    public boolean isSmallBull() {
-        return smallBull;
+    public Blob getGameData() {
+        return gameData;
     }
 
-    public void setSmallBull(boolean smallBull) {
-        this.smallBull = smallBull;
+    public void setGameData(Blob gameData) {
+        this.gameData = gameData;
     }
 
-    public boolean isPlayerPush() {
-        return playerPush;
+    public GameRecord() {
     }
 
-    public void setPlayerPush(boolean playerPush) {
-        this.playerPush = playerPush;
-    }
-
-    public boolean isStartedInto() {
-        return startedInto;
-    }
-
-    public void setStartedInto(boolean startedInto) {
-        this.startedInto = startedInto;
-    }
-
-    public String getGameInfo() {
-        return gameInfo;
-    }
-
-    public void setGameInfo(String gameInfo) {
-        this.gameInfo = gameInfo;
+    public GameRecord(GameType gameType, Integer roomOwner, Integer[] people, Integer gameTotal, Integer gameCount, Integer peopleCount, Integer roomNo, Blob gameData) {
+        setCreateDate(new Date());
+        this.gameType = gameType;
+        this.roomOwner = roomOwner;
+        this.people = people;
+        this.gameTotal = gameTotal;
+        this.gameCount = gameCount;
+        this.peopleCount = peopleCount;
+        this.roomNo = roomNo;
+        this.gameData = gameData;
     }
 }

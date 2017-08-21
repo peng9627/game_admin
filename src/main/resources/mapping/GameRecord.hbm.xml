@@ -3,22 +3,14 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-access="field">
-
-    <class name="game.domain.model.gamerecord.GameRecord" table="t_gamerecord" lazy="true">
-
+    <class name="game.domain.model.gamerecord.GameRecord" table="t_game_record" lazy="true">
         <id name="id" type="java.lang.String" column="id" unsaved-value="null" length="32">
             <generator class="uuid"/>
         </id>
 
-        <version name="version" column="version" type="java.lang.Integer"/>
+        <version column="version" name="version" type="java.lang.Integer"/>
 
         <property name="createDate" column="create_date" type="java.util.Date"/>
-
-        <property name="userNames" column="user_names" type="java.lang.String"/>
-
-        <property name="gameInfo" column="game_info" type="java.lang.String" length="10000"/>
-
-        <property name="baseScore" column="base_score" type="java.lang.Integer"/>
 
         <property name="gameType" column="game_type">
             <type name="org.hibernate.type.EnumType">
@@ -27,27 +19,29 @@
             </type>
         </property>
 
-        <property name="roomOwner" column="room_owner" type="java.lang.String"/>
+        <property name="roomOwner" column="room_owner" type="java.lang.Integer"/>
 
-        <property name="totalRound" column="total_round" type="java.lang.Integer"/>
+        <array name="people" table="t_game_record_people">
+            <key>
+                <column name="game_record"/>
+            </key>
+            <list-index>
+                <column name="list_order"/>
+            </list-index>
+            <element type="java.lang.Integer">
+                <column name="person"/>
+            </element>
+        </array>
+
+        <property name="gameTotal" column="game_total" type="java.lang.Integer"/>
+
+        <property name="gameCount" column="game_count" type="java.lang.Integer"/>
+
+        <property name="peopleCount" column="people_count" type="java.lang.Integer"/>
 
         <property name="roomNo" column="room_no" type="java.lang.Integer"/>
 
-        <property name="rule" column="rule" type="java.lang.Integer"/>
-
-        <property name="doubleBull" column="double_bull" type="java.lang.Boolean"/>
-
-        <property name="spottedBull" column="spotted_bull" type="java.lang.Boolean"/>
-
-        <property name="bombBull" column="bomb_bull" type="java.lang.Boolean"/>
-
-        <property name="smallBull" column="small_bull" type="java.lang.Boolean"/>
-
-        <property name="playerPush" column="player_push" type="java.lang.Boolean"/>
-
-        <property name="startedInto" column="started_into" type="java.lang.Boolean"/>
-
+        <property name="gameData" column="game_data" type="java.sql.Blob"/>
 
     </class>
-
 </hibernate-mapping>

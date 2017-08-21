@@ -1,7 +1,6 @@
 package game.core.common;
 
 
-import game.domain.model.account.Account;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -44,21 +43,21 @@ public class PasswordHelper {
         return newPassword;
     }
 
-    /**
-     * 验证密码是否相等
-     *
-     * @param account
-     * @param password
-     * @return
-     */
-    public static boolean equalsPassword(Account account, String password) {
-        String newPassword = new SimpleHash(
-                algorithmName,
-                password,
-                ByteSource.Util.bytes(account.getSalt()),
-                hashIterations).toHex();
-
-        return account.getPassword().equals(newPassword);
-    }
+//    /**
+//     * 验证密码是否相等
+//     *
+//     * @param account
+//     * @param password
+//     * @return
+//     */
+//    public static boolean equalsPassword(Account account, String password) {
+//        String newPassword = new SimpleHash(
+//                algorithmName,
+//                password,
+//                ByteSource.Util.bytes(account.getSalt()),
+//                hashIterations).toHex();
+//
+//        return account.getPassword().equals(newPassword);
+//    }
 
 }

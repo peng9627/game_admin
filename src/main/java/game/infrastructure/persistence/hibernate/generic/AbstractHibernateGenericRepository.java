@@ -36,7 +36,7 @@ public abstract class AbstractHibernateGenericRepository<T, ID extends Serializa
         this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
-    protected Session getSession() {
+    public Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 

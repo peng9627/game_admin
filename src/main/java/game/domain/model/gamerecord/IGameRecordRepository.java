@@ -5,7 +5,9 @@ import game.infrastructure.persistence.hibernate.generic.IHibernateGenericReposi
 import java.io.Serializable;
 
 /**
- * Created by zhangjin on 2017/6/1.
+ * Created by pengyi
+ * Date : 17-8-19.
+ * desc:
  */
 public interface IGameRecordRepository<T, ID extends Serializable> extends IHibernateGenericRepository<T, ID> {
 }

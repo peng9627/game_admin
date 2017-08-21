@@ -1,9 +1,7 @@
 package game.application.user;
 
-import game.application.auth.command.LoginCommand;
-import game.application.shared.command.SharedCommand;
-import game.application.user.command.*;
-import game.application.user.representation.ApiUserRepresentation;
+import game.application.user.command.ListUserCommand;
+import game.application.user.command.LoginCommand;
 import game.application.user.representation.UserRepresentation;
 import game.core.mapping.IMappingService;
 import game.domain.model.user.User;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -46,84 +43,20 @@ public class UserAppService implements IUserAppService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserRepresentation searchByID(String id) {
         return mappingService.map(userService.searchByID(id), UserRepresentation.class, false);
     }
 
     @Override
-    public UserRepresentation create(CreateUserCommand command) {
-        return mappingService.map(userService.create(command), UserRepresentation.class, false);
+    @Transactional(readOnly = true)
+    public UserRepresentation info(int userId) {
+        return mappingService.map(userService.searchByUserId(userId), UserRepresentation.class, false);
     }
 
     @Override
-    public UserRepresentation edit(EditUserCommand command) {
-        return mappingService.map(userService.edit(command), UserRepresentation.class, false);
-    }
-
-    @Override
-    public void addMoney(MoneyCommand command) {
-        userService.addMoney(command);
-    }
-
-    @Override
-    public void subtractMoney(MoneyCommand command) {
-        userService.subtractMoney(command);
-    }
-
-    @Override
-    public void updateVip(SharedCommand command) {
-        userService.updateVip(command);
-    }
-
-    @Override
-    public void register(CreateUserCommand command) {
-        userService.create(command);
-    }
-
-    @Override
-    public void updateRanking() {
-        userService.updateRanking();
-    }
-
-    @Override
-    public BigDecimal totalMoney(ListUserCommand command) {
-        return userService.totalMoney(command);
-    }
-
-    @Override
-    public ApiUserRepresentation login(LoginCommand command) {
-        return mappingService.map(userService.login(command), ApiUserRepresentation.class, false);
-    }
-
-    @Override
-    public ApiUserRepresentation weChatLogin(LoginCommand command) {
-        return mappingService.map(userService.weChatLogin(command), ApiUserRepresentation.class, false);
-    }
-
-    @Override
-    public ApiUserRepresentation info(String username) {
-        return mappingService.map(userService.searchByName(username), ApiUserRepresentation.class, false);
-    }
-
-    @Override
-    public void bindInviteCode(InviteCodeCommand command) {
-        userService.bindInviteCode(command);
-    }
-
-    @Override
-    public String searchIdByToken(String token) {
-
-        return userService.searchIdByToken(token);
-    }
-
-    @Override
-    public BigDecimal receiveGold(String userName) {
-        return userService.receiveGold(userName);
-    }
-
-    @Override
-    public BigDecimal receiveBenefit(String userName) {
-        return userService.receiveBenefit(userName);
+    public UserRepresentation weChatLogin(LoginCommand command) {
+        return mappingService.map(userService.weChatLogin(command), UserRepresentation.class, false);
     }
 
 }
