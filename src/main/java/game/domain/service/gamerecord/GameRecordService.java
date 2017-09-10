@@ -2,8 +2,11 @@ package game.domain.service.gamerecord;
 
 import game.application.gamerecord.command.CreateCommand;
 import game.application.gamerecord.command.ListCommand;
+import game.core.exception.NoFoundException;
+import game.core.util.CoreDateUtils;
 import game.domain.model.gamerecord.GameRecord;
 import game.domain.model.gamerecord.IGameRecordRepository;
+import game.domain.service.user.IUserService;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,10 +27,12 @@ import java.util.List;
 public class GameRecordService implements IGameRecordService {
 
     private final IGameRecordRepository<GameRecord, String> gameRecordRepository;
+    private IUserService userService;
 
     @Autowired
-    public GameRecordService(IGameRecordRepository<GameRecord, String> gameRecordRepository) {
+    public GameRecordService(IGameRecordRepository<GameRecord, String> gameRecordRepository, IUserService userService) {
         this.gameRecordRepository = gameRecordRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -34,8 +40,15 @@ public class GameRecordService implements IGameRecordService {
 
         GameRecord gameRecord = new GameRecord(command.getGameType(), command.getRoomOwner(), command.getPeople()
                 , command.getGameTotal(), command.getGameCount(), command.getPeopleCount(), command.getRoomNo(),
-                gameRecordRepository.getSession().getLobHelper().createBlob(command.getGameData()));
+                gameRecordRepository.getSession().getLobHelper().createBlob(command.getGameData()),
+                gameRecordRepository.getSession().getLobHelper().createBlob(command.getScoreData()));
         gameRecordRepository.save(gameRecord);
+
+        String[] users = command.getPeople().split(",");
+        for (String user : users) {
+            userService.addGameCount(Integer.parseInt(user));
+        }
+
     }
 
     @Override
@@ -52,10 +65,20 @@ public class GameRecordService implements IGameRecordService {
         if (0 != command.getRoomNo()) {
             criterionList.add(Restrictions.eq("roomNo", command.getRoomNo()));
         }
+        criterionList.add(Restrictions.ge("createDate", CoreDateUtils.addDay(new Date(), -3)));
 
         List<Order> orderList = new ArrayList<>();
         orderList.add(Order.desc("createDate"));
-        return gameRecordRepository.list(criterionList, orderList);
+        return gameRecordRepository.list(criterionList, orderList, null, null, null, 10);
+    }
+
+    @Override
+    public GameRecord info(String id) {
+        GameRecord gameRecord = gameRecordRepository.getById(id);
+        if (null == gameRecord) {
+            throw new NoFoundException();
+        }
+        return gameRecord;
     }
 
 }

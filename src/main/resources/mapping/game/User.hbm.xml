@@ -25,7 +25,7 @@
             </type>
         </property>
 
-        <property name="money" column="money" type="java.lang.Long" scale="2"/>
+        <property name="money" column="money" type="java.lang.Integer" scale="2"/>
 
         <property name="sex" column="sex">
             <type name="org.hibernate.type.EnumType">
@@ -42,11 +42,16 @@
 
         <property name="area" column="area" type="java.lang.String"/>
 
-        <property name="gameCount" column="game_count" type="java.lang.Long"/>
+        <property name="gameCount" column="game_count" type="java.lang.Integer"/>
+
+        <property name="todayGameCount" column="today_game_count" type="java.lang.Integer"/>
 
         <property name="lastLoginDate" column="last_login_date" type="java.util.Date"/>
 
         <property name="status" column="status" type="java.lang.Boolean"/>
 
+        <property name="integral" column="integral" type="java.lang.Integer"/>
+
+        <property name="shared" column="shared" type="java.lang.Boolean"/>
     </class>
 </hibernate-mapping>

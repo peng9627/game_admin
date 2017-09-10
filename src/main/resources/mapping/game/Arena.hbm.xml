@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+    <class name="game.domain.model.arena.Arena" table="t_arena" lazy="true">
+        <id name="id" type="java.lang.String" column="id" unsaved-value="null" length="32">
+            <generator class="uuid"/>
+        </id>
+
+        <version column="version" name="version" type="java.lang.Integer"/>
+
+        <property name="createDate" column="create_date" type="java.util.Date"/>
+
+        <property name="gameType" column="game_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">game.core.enums.GameType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
+
+        <property name="arenaType" column="arena_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">game.core.enums.ArenaType</param>
+                <param name="type">4</param>
+            </type>
+        </property>
+
+        <property name="name" column="name" type="java.lang.String"/>
+
+        <property name="count" column="count" type="java.lang.Integer"/>
+
+        <property name="entryFee" column="entry_fee" type="java.lang.Integer"/>
+
+        <property name="reward" column="reward" type="java.lang.Integer"/>
+
+        <property name="status" column="status" type="java.lang.Boolean"/>
+
+    </class>
+</hibernate-mapping>

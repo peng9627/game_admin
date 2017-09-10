@@ -2,6 +2,7 @@ package game.application.gamerecord;
 
 import game.application.gamerecord.command.CreateCommand;
 import game.application.gamerecord.command.ListCommand;
+import game.application.gamerecord.representation.GameRecordInfoRepresentation;
 import game.application.gamerecord.representation.GameRecordRepresentation;
 import game.core.mapping.IMappingService;
 import game.domain.service.gamerecord.IGameRecordService;
@@ -37,7 +38,14 @@ public class GameRecordAppAppService implements IGameRecordAppService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<GameRecordRepresentation> list(ListCommand command) {
         return mappingService.mapAsList(gameRecordService.list(command), GameRecordRepresentation.class);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public GameRecordInfoRepresentation info(String id) {
+        return mappingService.map(gameRecordService.info(id), GameRecordInfoRepresentation.class, false);
     }
 }

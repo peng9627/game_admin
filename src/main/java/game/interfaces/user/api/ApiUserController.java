@@ -7,6 +7,7 @@ import game.application.user.representation.UserRepresentation;
 import game.core.api.ApiResponse;
 import game.core.api.ApiReturnCode;
 import game.core.exception.ApiAuthenticationException;
+import game.core.exception.ExistException;
 import game.interfaces.shared.api.BaseApiController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Author pengyi
@@ -62,6 +64,44 @@ public class ApiUserController extends BaseApiController {
 
             UserRepresentation userRepresentation = userAppService.info(command.getInteger("userId"));
             apiResponse = new ApiResponse<>(ApiReturnCode.SUCCESS, userRepresentation);
+        } catch (ApiAuthenticationException e) {
+            logger.warn(e.getMessage());
+            apiResponse = new ApiResponse<>(ApiReturnCode.AUTHENTICATION_FAILURE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            apiResponse = new ApiResponse<>(ApiReturnCode.ERROR_UNKNOWN);
+        }
+        this.returnData(response, apiResponse);
+    }
+
+    @RequestMapping(value = "/share")
+    public void share(HttpServletRequest request, HttpServletResponse response) {
+        ApiResponse apiResponse;
+        try {
+            JSONObject command = this.authenticationAndConvert(request, JSONObject.class);
+
+            userAppService.share(command.getInteger("userId"));
+            apiResponse = new ApiResponse(ApiReturnCode.SUCCESS);
+        } catch (ApiAuthenticationException e) {
+            logger.warn(e.getMessage());
+            apiResponse = new ApiResponse(ApiReturnCode.AUTHENTICATION_FAILURE);
+        } catch (ExistException e) {
+            apiResponse = new ApiResponse(ApiReturnCode.ERROR_SHARED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            apiResponse = new ApiResponse(ApiReturnCode.ERROR_UNKNOWN);
+        }
+        this.returnData(response, apiResponse);
+    }
+
+    @RequestMapping(value = "/list")
+    public void list(HttpServletRequest request, HttpServletResponse response) {
+        ApiResponse<List<UserRepresentation>> apiResponse;
+        try {
+            JSONObject command = this.authenticationAndConvert(request, JSONObject.class);
+
+            List<UserRepresentation> userRepresentations = userAppService.list(command.getString("userIds"));
+            apiResponse = new ApiResponse<>(ApiReturnCode.SUCCESS, userRepresentations);
         } catch (ApiAuthenticationException e) {
             logger.warn(e.getMessage());
             apiResponse = new ApiResponse<>(ApiReturnCode.AUTHENTICATION_FAILURE);

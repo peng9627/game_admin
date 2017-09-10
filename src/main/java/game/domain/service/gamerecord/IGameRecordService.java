@@ -16,4 +16,6 @@ public interface IGameRecordService {
     void create(CreateCommand command);
 
     List<GameRecord> list(ListCommand command);
+
+    GameRecord info(String id);
 }

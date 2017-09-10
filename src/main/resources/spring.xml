@@ -20,6 +20,7 @@
         <context:exclude-filter type="annotation" expression="javax.websocket.server.ServerEndpoint"/>
     </context:component-scan>
 
+    <import resource="spring-redis.xml"/>
     <import resource="spring-persistence.xml"/>
 
 </beans>

@@ -15,8 +15,8 @@ public class MoneyDetailed extends ConcurrencySafeEntity {
     private FlowType flowType;          //资金流向类型
     private int money;                  //金额
     private String description;         //说明（）
-    private Long oldMoney;              //原有金额
-    private Long newMoney;              //现有金额
+    private Integer oldMoney;              //原有金额
+    private Integer newMoney;              //现有金额
 
     private void setUser(User user) {
         this.user = user;
@@ -50,19 +50,19 @@ public class MoneyDetailed extends ConcurrencySafeEntity {
         this.description = description;
     }
 
-    public Long getOldMoney() {
+    public Integer getOldMoney() {
         return oldMoney;
     }
 
-    public void setOldMoney(Long oldMoney) {
+    public void setOldMoney(Integer oldMoney) {
         this.oldMoney = oldMoney;
     }
 
-    public Long getNewMoney() {
+    public Integer getNewMoney() {
         return newMoney;
     }
 
-    public void setNewMoney(Long newMoney) {
+    public void setNewMoney(Integer newMoney) {
         this.newMoney = newMoney;
     }
 
@@ -70,7 +70,7 @@ public class MoneyDetailed extends ConcurrencySafeEntity {
         super();
     }
 
-    public MoneyDetailed(User user, FlowType flowType, int money, String description, Long oldMoney, Long newMoney) {
+    public MoneyDetailed(User user, FlowType flowType, int money, String description, Integer oldMoney, Integer newMoney) {
         this.user = user;
         this.flowType = flowType;
         this.money = money;

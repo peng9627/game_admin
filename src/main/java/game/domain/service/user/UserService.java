@@ -1,12 +1,16 @@
 package game.domain.service.user;
 
+import game.application.moneydetailed.command.CreateCommand;
 import game.application.user.command.ListCommand;
 import game.application.user.command.LoginCommand;
 import game.core.enums.EnableStatus;
+import game.core.enums.FlowType;
+import game.core.exception.ExistException;
 import game.core.exception.NoFoundException;
 import game.core.util.CoreStringUtils;
 import game.domain.model.user.IUserRepository;
 import game.domain.model.user.User;
+import game.domain.service.moneydetailed.IMoneyDetailedService;
 import game.infrastructure.persistence.hibernate.generic.Pagination;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
@@ -25,6 +29,9 @@ import java.util.*;
 public class UserService implements IUserService {
 
     private final IUserRepository<User, String> userRepository;
+
+    @Autowired
+    private IMoneyDetailedService moneyDetailedService;
 
     @Autowired
     public UserService(IUserRepository<User, String> userRepository) {
@@ -121,5 +128,44 @@ public class UserService implements IUserService {
 
         userRepository.save(user);
         return user;
+    }
+
+    @Override
+    public void addGameCount(int userId) {
+        User user = searchByUserId(userId);
+        user.setGameCount(user.getGameCount() + 1);
+        if (user.getGameCount() == 100) {
+            //TODO 送积分
+        }
+        userRepository.save(user);
+    }
+
+    @Override
+    public void share(Integer userId) {
+        User user = searchByUserId(userId);
+        if (user.getShared()) {
+            throw new ExistException();
+        }
+        user.setShared(true);
+        CreateCommand createCommand = new CreateCommand();
+        createCommand.setUserId(userId);
+        createCommand.setFlowType(FlowType.IN_FLOW);
+        createCommand.setMoney(10);
+        createCommand.setDescription("分享送钻石");
+        moneyDetailedService.create(createCommand);
+    }
+
+    @Override
+    public List<User> list(String userIds) {
+        List<Criterion> criterionList = new ArrayList<>();
+        List<Integer> integers = new ArrayList<>();
+        if (!CoreStringUtils.isEmpty(userIds)) {
+            String[] ids = userIds.split(",");
+            for (String userId : ids) {
+                integers.add(Integer.valueOf(userId));
+            }
+            criterionList.add(Restrictions.in("userId", integers));
+        }
+        return userRepository.list(criterionList, null);
     }
 }

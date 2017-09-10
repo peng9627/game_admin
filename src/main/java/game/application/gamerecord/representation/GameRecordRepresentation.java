@@ -22,7 +22,7 @@ public class GameRecordRepresentation {
     private Integer gameCount;
     private Integer peopleCount;
     private Integer roomNo;
-    private byte[] data;
+    private byte[] sData;
 
     public String getId() {
         return id;
@@ -104,11 +104,11 @@ public class GameRecordRepresentation {
         this.roomNo = roomNo;
     }
 
-    public byte[] getData() {
-        return data;
+    public byte[] getsData() {
+        return sData;
     }
 
-    public void setData(byte[] data) {
-        this.data = data;
+    public void setsData(byte[] sData) {
+        this.sData = sData;
     }
 }

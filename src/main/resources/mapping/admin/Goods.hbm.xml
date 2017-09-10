@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+    <class name="game.domain.model.goods.Goods" table="t_goods" lazy="true">
+        <id name="id" column="m_goods_id" type="java.lang.Integer" unsaved-value="null"/>
+
+        <property name="img" column="m_goods_url" type="java.lang.String"/>
+
+        <property name="name" column="m_goods_name" type="java.lang.String"/>
+
+        <property name="price" column="m_goods_price" type="java.lang.Integer"/>
+
+    </class>
+</hibernate-mapping>

@@ -19,7 +19,7 @@ import java.util.List;
  * Date : 16-7-11.
  */
 @Service("moneyDetailedAppService")
-@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, transactionManager = "transactionManager")
 public class MoneyDetailedAppService implements IMoneyDetailedAppService {
 
     private final IMoneyDetailedService moneyDetailedService;

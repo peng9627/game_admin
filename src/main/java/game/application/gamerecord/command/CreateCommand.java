@@ -17,6 +17,7 @@ public class CreateCommand {
     private Integer peopleCount;
     private Integer roomNo;
     private byte[] gameData;
+    private byte[] scoreData;
 
     public GameType getGameType() {
         return gameType;
@@ -80,5 +81,13 @@ public class CreateCommand {
 
     public void setGameData(byte[] gameData) {
         this.gameData = gameData;
+    }
+
+    public byte[] getScoreData() {
+        return scoreData;
+    }
+
+    public void setScoreData(byte[] scoreData) {
+        this.scoreData = scoreData;
     }
 }

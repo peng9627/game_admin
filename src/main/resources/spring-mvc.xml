@@ -12,6 +12,19 @@
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
         <property name="validationMessageSource" ref="messageSource"/>
     </bean>
+
+    <bean name="fastJsonConfig" class="com.alibaba.fastjson.support.config.FastJsonConfig">
+        <property name="serializerFeatures">
+            <array>
+                <value>WriteNullListAsEmpty</value>
+                <value>WriteMapNullValue</value>
+                <value>DisableCircularReferenceDetect</value>
+                <value>WriteNullStringAsEmpty</value>
+                <value>WriteNullNumberAsZero</value>
+                <value>WriteNullBooleanAsFalse</value>
+            </array>
+        </property>
+    </bean>
     <mvc:annotation-driven validator="validator">
         <mvc:message-converters register-defaults="true">
             <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
@@ -31,15 +44,19 @@
                         <value>application/json;charset=UTF-8</value>
                     </list>
                 </property>
-                <property name="features">
-                    <list>
-                        <value>WriteMapNullValue</value>
-                        <value>WriteDateUseDateFormat</value>
-                        <value>DisableCircularReferenceDetect</value>
-                    </list>
-                </property>
+
+                <property name="fastJsonConfig" ref="fastJsonConfig"/>
+
+                <!--<property name="features">-->
+                <!--<list>-->
+                <!--<value>WriteMapNullValue</value>-->
+                <!--<value>WriteDateUseDateFormat</value>-->
+                <!--<value>DisableCircularReferenceDetect</value>-->
+                <!--<value>WriteEnumUsingToString</value>-->
+                <!--</list>-->
+                <!--</property>-->
             </bean>
-            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"></bean>
+            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
         </mvc:message-converters>
     </mvc:annotation-driven>
 

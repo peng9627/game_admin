@@ -5,6 +5,8 @@ import game.application.user.command.LoginCommand;
 import game.domain.model.user.User;
 import game.infrastructure.persistence.hibernate.generic.Pagination;
 
+import java.util.List;
+
 /**
  * Created by pengyi
  * Date : 2016/4/19.
@@ -23,4 +25,10 @@ public interface IUserService {
     void save(User user);
 
     User weChatLogin(LoginCommand command);
+
+    void addGameCount(int userId);
+
+    void share(Integer userId);
+
+    List<User> list(String userIds);
 }

@@ -25,9 +25,9 @@
 
         <property name="description" column="description" type="java.lang.String"/>
 
-        <property name="oldMoney" column="old_money" type="java.lang.Long"/>
+        <property name="oldMoney" column="old_money" type="java.lang.Integer"/>
 
-        <property name="newMoney" column="new_money" type="java.lang.Long"/>
+        <property name="newMoney" column="new_money" type="java.lang.Integer"/>
 
     </class>
 </hibernate-mapping>

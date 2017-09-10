@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+    <class name="game.domain.model.exchange.Exchange" table="t_exchange" lazy="true">
+        <id name="id" column="m_exchange_id" type="java.lang.Integer" unsaved-value="null"/>
+
+        <property name="approvalUserId" column="m_exchange_approval_user_id" type="java.lang.Integer"/>
+
+        <property name="userId" column="m_exchange_user_id" type="java.lang.Integer"/>
+
+        <property name="createDate" column="m_exchange_date" type="java.util.Date"/>
+
+        <property name="goodsId" column="m_exchange_goods_id" type="java.lang.Integer"/>
+
+        <property name="goodsName" column="m_exchange_goods_name" type="java.lang.String"/>
+
+        <property name="price" column="m_exchange_goods_price" type="java.lang.Integer"/>
+
+    </class>
+</hibernate-mapping>

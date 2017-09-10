@@ -59,4 +59,14 @@ public class UserAppService implements IUserAppService {
         return mappingService.map(userService.weChatLogin(command), UserRepresentation.class, false);
     }
 
+    @Override
+    public void share(Integer userId) {
+        userService.share(userId);
+    }
+
+    @Override
+    public List<UserRepresentation> list(String userIds) {
+        return mappingService.mapAsList(userService.list(userIds), UserRepresentation.class);
+    }
+
 }

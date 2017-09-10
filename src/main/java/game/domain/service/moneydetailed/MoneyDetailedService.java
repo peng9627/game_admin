@@ -44,7 +44,7 @@ public class MoneyDetailedService implements IMoneyDetailedService {
         User user = userService.searchByUserId(command.getUserId());
 
         if (command.getFlowType() == FlowType.IN_FLOW) {
-            long oldMoney = user.getMoney();
+            int oldMoney = user.getMoney();
 
             user.setMoney(user.getMoney() + command.getMoney());
 
@@ -53,7 +53,7 @@ public class MoneyDetailedService implements IMoneyDetailedService {
             MoneyDetailed moneyDetailed = new MoneyDetailed(user, command.getFlowType(), command.getMoney(), command.getDescription(), oldMoney, user.getMoney());
             moneyDetailedRepository.save(moneyDetailed);
         } else {
-            Long oldMoney = user.getMoney();
+            int oldMoney = user.getMoney();
 
             user.setMoney(user.getMoney() - command.getMoney());
 

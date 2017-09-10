@@ -17,11 +17,11 @@ import java.sql.SQLException;
 public class GameRecordRepresentationMapper extends CustomMapper<GameRecord, GameRecordRepresentation> {
 
     public void mapAtoB(GameRecord gameRecord, GameRecordRepresentation representation, MappingContext context) {
-        if (null != gameRecord.getGameData()) {
+        if (null != gameRecord.getScoreData()) {
             try {
-                byte[] bytes = new byte[(int) gameRecord.getGameData().length()];
-                gameRecord.getGameData().getBinaryStream().read(bytes);
-                representation.setData(bytes);
+                byte[] scoreData = new byte[(int) gameRecord.getScoreData().length()];
+                gameRecord.getScoreData().getBinaryStream().read(scoreData);
+                representation.setsData(scoreData);
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (IOException e) {

@@ -16,15 +16,18 @@ public class User extends ConcurrencySafeEntity {
     private String nickname;            //网名
     private String head;                //头像
     private ClientAgent agent;          //终端
-    private Long money;                 //房卡
+    private Integer money;              //房卡
     private Sex sex;
     private String weChatNo;            //微信号
     private String registerIp;          //注册ip
     private String lastLoginIp;         //上次登陆ip
     private String area;                //地方
-    private Long gameCount;             //游戏局数
+    private Integer gameCount;          //游戏局数
+    private Integer todayGameCount;     //今日游戏次数
     private Date lastLoginDate;         //上次登陆时间
     private Boolean status;             //状态
+    private Integer integral;           //积分
+    private Boolean shared;             //是否分享
 
     public Integer getUserId() {
         return userId;
@@ -58,11 +61,11 @@ public class User extends ConcurrencySafeEntity {
         this.agent = agent;
     }
 
-    public long getMoney() {
+    public Integer getMoney() {
         return money;
     }
 
-    public void setMoney(long money) {
+    public void setMoney(Integer money) {
         this.money = money;
     }
 
@@ -106,16 +109,20 @@ public class User extends ConcurrencySafeEntity {
         this.area = area;
     }
 
-    public Long getGameCount() {
+    public Integer getGameCount() {
         return gameCount;
     }
 
-    public void setGameCount(Long gameCount) {
+    public void setGameCount(Integer gameCount) {
         this.gameCount = gameCount;
     }
 
-    public void setMoney(Long money) {
-        this.money = money;
+    public Integer getTodayGameCount() {
+        return todayGameCount;
+    }
+
+    public void setTodayGameCount(Integer todayGameCount) {
+        this.todayGameCount = todayGameCount;
     }
 
     public Date getLastLoginDate() {
@@ -134,6 +141,22 @@ public class User extends ConcurrencySafeEntity {
         this.status = status;
     }
 
+    public Integer getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(Integer integral) {
+        this.integral = integral;
+    }
+
+    public Boolean getShared() {
+        return shared;
+    }
+
+    public void setShared(Boolean shared) {
+        this.shared = shared;
+    }
+
     public User() {
     }
 
@@ -141,9 +164,12 @@ public class User extends ConcurrencySafeEntity {
         setCreateDate(new Date());
         this.userId = userId;
         this.weChatNo = weChatNo;
-        this.money = 0L;
-        this.gameCount = 0L;
+        this.money = 0;
+        this.gameCount = 0;
+        this.todayGameCount = 0;
+        this.integral = 0;
         this.lastLoginDate = new Date();
         this.status = true;
+        this.shared = false;
     }
 }
