@@ -7,7 +7,8 @@ public enum ClientAgent {
 
     ANDROID("安卓", 1),
     IOS("ios", 2),
-    PC("pc", 2);
+    PC("pc", 2),
+    OTHER("其它", 3);
 
     ClientAgent(String name, int value) {
         this.name = name;

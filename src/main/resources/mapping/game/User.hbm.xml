@@ -53,5 +53,7 @@
         <property name="integral" column="integral" type="java.lang.Integer"/>
 
         <property name="shared" column="shared" type="java.lang.Boolean"/>
+
+        <property name="nicknameByte" column="nickname_byte" type="java.sql.Blob"/>
     </class>
 </hibernate-mapping>

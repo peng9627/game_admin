@@ -1,24 +1,30 @@
 package game.domain.service.user;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import game.application.moneydetailed.command.CreateCommand;
 import game.application.user.command.ListCommand;
 import game.application.user.command.LoginCommand;
+import game.core.api.SocketRequest;
 import game.core.enums.EnableStatus;
 import game.core.enums.FlowType;
+import game.core.enums.NoticeType;
 import game.core.exception.ExistException;
 import game.core.exception.NoFoundException;
+import game.core.util.CoreDateUtils;
 import game.core.util.CoreStringUtils;
 import game.domain.model.user.IUserRepository;
 import game.domain.model.user.User;
 import game.domain.service.moneydetailed.IMoneyDetailedService;
 import game.infrastructure.persistence.hibernate.generic.Pagination;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.Socket;
 import java.util.*;
 
 /**
@@ -117,13 +123,21 @@ public class UserService implements IUserService {
             }
             user = new User(userId, command.getWeChatNo());
             user.setRegisterIp(command.getIp());
+        } else {
+            if (!CoreDateUtils.isSameDay(new Date(), user.getLastLoginDate())) {
+                user.setTodayGameCount(0);
+            }
         }
         user.setAgent(command.getAgent());
         user.setArea(command.getArea());
         user.setHead(command.getHead());
         user.setLastLoginDate(new Date());
         user.setLastLoginIp(command.getIp());
-        user.setNickname(command.getNickname());
+        try {
+            user.setNicknameByte(userRepository.getSession().getLobHelper().createBlob(command.getNickname().getBytes("utf-8")));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         user.setSex(command.getSex());
 
         userRepository.save(user);
@@ -134,8 +148,31 @@ public class UserService implements IUserService {
     public void addGameCount(int userId) {
         User user = searchByUserId(userId);
         user.setGameCount(user.getGameCount() + 1);
-        if (user.getGameCount() == 100) {
-            //TODO 送积分
+        user.setTodayGameCount(user.getTodayGameCount() + 1);
+        if (user.getTodayGameCount() == 100) {
+            user.setIntegral(user.getIntegral() + 100);
+            SerializerFeature[] features = new SerializerFeature[]{SerializerFeature.WriteNullListAsEmpty,
+                    SerializerFeature.WriteMapNullValue, SerializerFeature.DisableCircularReferenceDetect,
+                    SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteNullNumberAsZero,
+                    SerializerFeature.WriteNullBooleanAsFalse};
+            int ss = SerializerFeature.config(JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.WriteEnumUsingName, false);
+            SocketRequest socketRequest = new SocketRequest();
+            socketRequest.setNoticeType(NoticeType.CURRENCY);
+            socketRequest.setUserId(userId);
+            byte[] bytes = JSON.toJSONBytes(socketRequest, ss, features);
+            Socket socket = null;
+            try {
+                socket = new Socket("127.0.0.1", 10010);
+                OutputStream os = socket.getOutputStream();
+                writeInt(os, bytes.length);
+                os.write(bytes);
+                os.flush();
+                os.close();
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
         userRepository.save(user);
     }
@@ -167,5 +204,12 @@ public class UserService implements IUserService {
             criterionList.add(Restrictions.in("userId", integers));
         }
         return userRepository.list(criterionList, null);
+    }
+
+    private void writeInt(OutputStream s, int v) throws IOException {
+        s.write((v >>> 24) & 0xFF);
+        s.write((v >>> 16) & 0xFF);
+        s.write((v >>> 8) & 0xFF);
+        s.write((v) & 0xFF);
     }
 }

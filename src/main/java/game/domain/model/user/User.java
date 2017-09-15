@@ -4,6 +4,7 @@ import game.core.enums.ClientAgent;
 import game.core.enums.Sex;
 import game.core.id.ConcurrencySafeEntity;
 
+import java.sql.Blob;
 import java.util.Date;
 
 /**
@@ -28,6 +29,7 @@ public class User extends ConcurrencySafeEntity {
     private Boolean status;             //状态
     private Integer integral;           //积分
     private Boolean shared;             //是否分享
+    private Blob nicknameByte;
 
     public Integer getUserId() {
         return userId;
@@ -155,6 +157,14 @@ public class User extends ConcurrencySafeEntity {
 
     public void setShared(Boolean shared) {
         this.shared = shared;
+    }
+
+    public Blob getNicknameByte() {
+        return nicknameByte;
+    }
+
+    public void setNicknameByte(Blob nicknameByte) {
+        this.nicknameByte = nicknameByte;
     }
 
     public User() {

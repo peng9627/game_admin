@@ -5,6 +5,8 @@ import game.application.arena.representation.command.ListCommand;
 import game.core.mapping.IMappingService;
 import game.domain.service.arena.IArenaService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
  * desc:
  */
 @Service("arenaAppService")
+@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class ArenaAppService implements IArenaAppService {
 
     private final IArenaService arenaService;
@@ -25,11 +28,13 @@ public class ArenaAppService implements IArenaAppService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ArenaRepresentation> list(ListCommand command) {
         return mappingService.mapAsList(arenaService.list(command), ArenaRepresentation.class);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ArenaRepresentation info(String id) {
         return mappingService.map(arenaService.getById(id), ArenaRepresentation.class, false);
     }
