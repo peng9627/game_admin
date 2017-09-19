@@ -23,6 +23,7 @@ public class GameRecordRepresentation {
     private Integer peopleCount;
     private Integer roomNo;
     private byte[] sData;
+    private String gameRule;
 
     public String getId() {
         return id;
@@ -110,5 +111,13 @@ public class GameRecordRepresentation {
 
     public void setsData(byte[] sData) {
         this.sData = sData;
+    }
+
+    public String getGameRule() {
+        return gameRule;
+    }
+
+    public void setGameRule(String gameRule) {
+        this.gameRule = gameRule;
     }
 }

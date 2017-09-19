@@ -18,6 +18,7 @@ public class CreateCommand {
     private Integer roomNo;
     private byte[] gameData;
     private byte[] scoreData;
+    private String gameRule;
 
     public GameType getGameType() {
         return gameType;
@@ -89,5 +90,13 @@ public class CreateCommand {
 
     public void setScoreData(byte[] scoreData) {
         this.scoreData = scoreData;
+    }
+
+    public String getGameRule() {
+        return gameRule;
+    }
+
+    public void setGameRule(String gameRule) {
+        this.gameRule = gameRule;
     }
 }

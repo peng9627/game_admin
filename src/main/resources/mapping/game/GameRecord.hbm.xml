@@ -35,5 +35,7 @@
 
         <property name="scoreData" column="score_data" type="java.sql.Blob"/>
 
+        <property name="gameRule" column="game_rule" type="java.lang.String"/>
+
     </class>
 </hibernate-mapping>

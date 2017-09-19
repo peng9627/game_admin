@@ -14,7 +14,6 @@ import java.util.Date;
 public class User extends ConcurrencySafeEntity {
 
     private Integer userId;             //用户id
-    private String nickname;            //网名
     private String head;                //头像
     private ClientAgent agent;          //终端
     private Integer money;              //房卡
@@ -37,14 +36,6 @@ public class User extends ConcurrencySafeEntity {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public String getHead() {

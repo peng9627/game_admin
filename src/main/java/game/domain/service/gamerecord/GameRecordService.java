@@ -41,7 +41,7 @@ public class GameRecordService implements IGameRecordService {
         GameRecord gameRecord = new GameRecord(command.getGameType(), command.getRoomOwner(), command.getPeople()
                 , command.getGameTotal(), command.getGameCount(), command.getPeopleCount(), command.getRoomNo(),
                 gameRecordRepository.getSession().getLobHelper().createBlob(command.getGameData()),
-                gameRecordRepository.getSession().getLobHelper().createBlob(command.getScoreData()));
+                gameRecordRepository.getSession().getLobHelper().createBlob(command.getScoreData()), command.getGameRule());
         gameRecordRepository.save(gameRecord);
 
         String[] users = command.getPeople().split(",");

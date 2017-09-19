@@ -14,8 +14,6 @@
 
         <property name="userId" column="user_id" type="java.lang.Integer"/>
 
-        <property name="nickname" column="nickname" type="java.lang.String"/>
-
         <property name="head" column="head" type="java.lang.String"/>
 
         <property name="agent" column="agent">
