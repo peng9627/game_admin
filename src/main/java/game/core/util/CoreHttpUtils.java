@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.security.Key;
 
 /**
  * Created by pengyi on 2016/4/5 0005.
@@ -117,6 +119,23 @@ public class CoreHttpUtils {
         }
 
         return response;
+    }
+
+    public static String urlConnectionByRsa(String url, String pa) {
+
+        try {
+            Key publicKey = RSAUtils.getPublicKey("MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDmlCWDcOa9hOWq+ZTmuaKAr7yQqRRGBNb1LtYAlXMtuuXCWMSGdRiIrRrEsTDDBNRcjjm+slFt0BOCZoR4xtcO9d4+SLkg8mIJnDaLPnNsSM1GVuxMGTjdqT9jl/N7LBkHuW3JeIlZ5qk/7iX3JCUzXxGbs6aHnP2KW9RvXrdvPQIDAQAB");
+            if (CoreStringUtils.isEmpty(pa)) {
+                return new String(RSAUtils.decrypt(publicKey, urlConnection(url, null, "utf-8")), "utf-8");
+            }
+            byte[] bytes = RSAUtils.encrypt(publicKey, pa);
+            return new String(RSAUtils.decrypt(publicKey, urlConnection(url, URLEncoder.encode(new String(bytes, "utf-8"), "utf-8"), "utf-8")), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

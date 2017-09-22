@@ -9,6 +9,7 @@ import game.core.api.ApiReturnCode;
 import game.core.api.SocketRequest;
 import game.core.enums.NoticeType;
 import game.core.exception.ApiAuthenticationException;
+import game.core.util.CoreHttpUtils;
 import game.interfaces.shared.api.BaseApiController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.Socket;
 
 /**
  * Author pengyi
@@ -51,15 +51,7 @@ public class ApiMoneyDetailedController extends BaseApiController {
             SocketRequest socketRequest = new SocketRequest();
             socketRequest.setNoticeType(NoticeType.CURRENCY);
             socketRequest.setUserId(command.getUserId());
-            byte[] bytes = JSON.toJSONBytes(socketRequest, ss, features);
-            Socket socket = new Socket("127.0.0.1", 10010);
-            OutputStream os = socket.getOutputStream();
-            writeInt(os, bytes.length);
-            os.write(bytes);
-            os.flush();
-            os.close();
-            socket.close();
-
+            CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10010/1", JSON.toJSONString(socketRequest, ss, features));
         } catch (ApiAuthenticationException e) {
             logger.warn(e.getMessage());
             apiResponse = new ApiResponse(ApiReturnCode.AUTHENTICATION_FAILURE);
