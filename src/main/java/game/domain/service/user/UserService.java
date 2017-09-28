@@ -13,11 +13,16 @@ import game.core.exception.ExistException;
 import game.core.exception.NoFoundException;
 import game.core.util.CoreDateUtils;
 import game.core.util.CoreStringUtils;
+import game.domain.model.system.System;
 import game.domain.model.user.IUserRepository;
 import game.domain.model.user.User;
 import game.domain.service.moneydetailed.IMoneyDetailedService;
+import game.domain.service.system.ISystemService;
 import game.infrastructure.persistence.hibernate.generic.Pagination;
-import org.hibernate.criterion.*;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,12 +41,15 @@ public class UserService implements IUserService {
 
     private final IUserRepository<User, String> userRepository;
 
+    private final ISystemService systemService;
+
     @Autowired
     private IMoneyDetailedService moneyDetailedService;
 
     @Autowired
-    public UserService(IUserRepository<User, String> userRepository) {
+    public UserService(IUserRepository<User, String> userRepository, ISystemService systemService) {
         this.userRepository = userRepository;
+        this.systemService = systemService;
     }
 
 
@@ -123,6 +131,15 @@ public class UserService implements IUserService {
             }
             user = new User(userId, command.getWeChatNo());
             user.setRegisterIp(command.getIp());
+            userRepository.save(user);
+
+            System system = systemService.info();
+            CreateCommand createCommand = new CreateCommand();
+            createCommand.setUserId(userId);
+            createCommand.setFlowType(FlowType.IN_FLOW);
+            createCommand.setMoney(system.getRegisterGive());
+            createCommand.setDescription("分享送钻石");
+            moneyDetailedService.create(createCommand);
         } else {
             if (!CoreDateUtils.isSameDay(new Date(), user.getLastLoginDate())) {
                 user.setTodayGameCount(0);
@@ -184,10 +201,12 @@ public class UserService implements IUserService {
             throw new ExistException();
         }
         user.setShared(true);
+
+        System system = systemService.info();
         CreateCommand createCommand = new CreateCommand();
         createCommand.setUserId(userId);
         createCommand.setFlowType(FlowType.IN_FLOW);
-        createCommand.setMoney(10);
+        createCommand.setMoney(system.getShareGive());
         createCommand.setDescription("分享送钻石");
         moneyDetailedService.create(createCommand);
     }
