@@ -7,7 +7,6 @@ import game.application.moneydetailed.command.CreateCommand;
 import game.core.api.ApiResponse;
 import game.core.api.ApiReturnCode;
 import game.core.api.SocketRequest;
-import game.core.enums.NoticeType;
 import game.core.exception.ApiAuthenticationException;
 import game.core.util.CoreHttpUtils;
 import game.interfaces.shared.api.BaseApiController;
@@ -49,9 +48,8 @@ public class ApiMoneyDetailedController extends BaseApiController {
                     SerializerFeature.WriteNullBooleanAsFalse};
             int ss = SerializerFeature.config(JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.WriteEnumUsingName, false);
             SocketRequest socketRequest = new SocketRequest();
-            socketRequest.setNoticeType(NoticeType.CURRENCY);
             socketRequest.setUserId(command.getUserId());
-            CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10010/1", JSON.toJSONString(socketRequest, ss, features));
+            CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10110/1", JSON.toJSONString(socketRequest, ss, features));
         } catch (ApiAuthenticationException e) {
             logger.warn(e.getMessage());
             apiResponse = new ApiResponse(ApiReturnCode.AUTHENTICATION_FAILURE);

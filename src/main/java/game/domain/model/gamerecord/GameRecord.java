@@ -1,6 +1,5 @@
 package game.domain.model.gamerecord;
 
-import game.core.enums.GameType;
 import game.core.id.ConcurrencySafeEntity;
 
 import java.sql.Blob;
@@ -13,7 +12,7 @@ import java.util.Date;
  */
 public class GameRecord extends ConcurrencySafeEntity {
 
-    private GameType gameType;
+    private Integer gameType;//1.兴宁麻将 2.瑞金麻将 3.跑得快 4.三公 5.松江河
     private Integer roomOwner;
     private String people;
     private Integer gameTotal;
@@ -24,11 +23,11 @@ public class GameRecord extends ConcurrencySafeEntity {
     private Blob scoreData;
     private String gameRule;
 
-    public GameType getGameType() {
+    public Integer getGameType() {
         return gameType;
     }
 
-    public void setGameType(GameType gameType) {
+    public void setGameType(Integer gameType) {
         this.gameType = gameType;
     }
 
@@ -107,7 +106,7 @@ public class GameRecord extends ConcurrencySafeEntity {
     public GameRecord() {
     }
 
-    public GameRecord(GameType gameType, Integer roomOwner, String people, Integer gameTotal, Integer gameCount,
+    public GameRecord(Integer gameType, Integer roomOwner, String people, Integer gameTotal, Integer gameCount,
                       Integer peopleCount, Integer roomNo, Blob gameData, Blob scoreData, String gameRule) {
         setCreateDate(new Date());
         this.gameType = gameType;

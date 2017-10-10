@@ -1,7 +1,5 @@
 package game.application.gamerecord.command;
 
-import game.core.enums.GameType;
-
 /**
  * Created by pengyi
  * Date : 17-8-21.
@@ -9,7 +7,7 @@ import game.core.enums.GameType;
  */
 public class CreateCommand {
 
-    private GameType gameType;
+    private Integer gameType;
     private Integer roomOwner;
     private String people;
     private Integer gameTotal;
@@ -20,11 +18,11 @@ public class CreateCommand {
     private byte[] scoreData;
     private String gameRule;
 
-    public GameType getGameType() {
+    public Integer getGameType() {
         return gameType;
     }
 
-    public void setGameType(GameType gameType) {
+    public void setGameType(Integer gameType) {
         this.gameType = gameType;
     }
 

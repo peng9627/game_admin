@@ -1,7 +1,5 @@
 package game.core.api;
 
-import game.core.enums.NoticeType;
-
 /**
  * Created by pengyi
  * Date : 17-9-10.
@@ -9,16 +7,8 @@ import game.core.enums.NoticeType;
  */
 public class SocketRequest {
 
-    private NoticeType noticeType;
     private int userId;
-
-    public NoticeType getNoticeType() {
-        return noticeType;
-    }
-
-    public void setNoticeType(NoticeType noticeType) {
-        this.noticeType = noticeType;
-    }
+    private String content;
 
     public int getUserId() {
         return userId;
@@ -26,5 +16,13 @@ public class SocketRequest {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

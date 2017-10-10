@@ -1,7 +1,5 @@
 package game.application.gamerecord.command;
 
-import game.core.enums.GameType;
-
 /**
  * Created by pengyi
  * Date : 17-8-21.
@@ -9,15 +7,15 @@ import game.core.enums.GameType;
  */
 public class ListCommand {
 
-    private GameType gameType;
+    private Integer gameType;
     private int userId;
     private int roomNo;
 
-    public GameType getGameType() {
+    public Integer getGameType() {
         return gameType;
     }
 
-    public void setGameType(GameType gameType) {
+    public void setGameType(Integer gameType) {
         this.gameType = gameType;
     }
 

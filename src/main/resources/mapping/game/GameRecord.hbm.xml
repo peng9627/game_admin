@@ -12,12 +12,7 @@
 
         <property name="createDate" column="create_date" type="java.util.Date"/>
 
-        <property name="gameType" column="game_type">
-            <type name="org.hibernate.type.EnumType">
-                <param name="enumClass">game.core.enums.GameType</param>
-                <param name="type">4</param>
-            </type>
-        </property>
+        <property name="gameType" column="game_type" type="java.lang.Integer"/>
 
         <property name="roomOwner" column="room_owner" type="java.lang.Integer"/>
 

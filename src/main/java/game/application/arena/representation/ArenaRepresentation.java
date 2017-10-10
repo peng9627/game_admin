@@ -1,7 +1,6 @@
 package game.application.arena.representation;
 
 import game.core.enums.ArenaType;
-import game.core.enums.GameType;
 
 import java.util.Date;
 
@@ -16,7 +15,7 @@ public class ArenaRepresentation {
     private Integer version;
     private Date createDate;
 
-    private GameType gameType;              //游戏类型
+    private Integer gameType;              //游戏类型
     private ArenaType arenaType;            //竞技类型
     private String name;                    //竞技名
     private Integer count;                  //人数
@@ -47,11 +46,11 @@ public class ArenaRepresentation {
         this.createDate = createDate;
     }
 
-    public GameType getGameType() {
+    public Integer getGameType() {
         return gameType;
     }
 
-    public void setGameType(GameType gameType) {
+    public void setGameType(Integer gameType) {
         this.gameType = gameType;
     }
 

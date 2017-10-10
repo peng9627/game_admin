@@ -8,10 +8,10 @@ import game.application.user.command.LoginCommand;
 import game.core.api.SocketRequest;
 import game.core.enums.EnableStatus;
 import game.core.enums.FlowType;
-import game.core.enums.NoticeType;
 import game.core.exception.ExistException;
 import game.core.exception.NoFoundException;
 import game.core.util.CoreDateUtils;
+import game.core.util.CoreHttpUtils;
 import game.core.util.CoreStringUtils;
 import game.domain.model.system.System;
 import game.domain.model.user.IUserRepository;
@@ -29,7 +29,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.Socket;
 import java.util.*;
 
 /**
@@ -174,22 +173,8 @@ public class UserService implements IUserService {
                     SerializerFeature.WriteNullBooleanAsFalse};
             int ss = SerializerFeature.config(JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.WriteEnumUsingName, false);
             SocketRequest socketRequest = new SocketRequest();
-            socketRequest.setNoticeType(NoticeType.CURRENCY);
             socketRequest.setUserId(userId);
-            byte[] bytes = JSON.toJSONBytes(socketRequest, ss, features);
-            Socket socket = null;
-            try {
-                socket = new Socket("127.0.0.1", 10010);
-                OutputStream os = socket.getOutputStream();
-                writeInt(os, bytes.length);
-                os.write(bytes);
-                os.flush();
-                os.close();
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10110/1", JSON.toJSONString(socketRequest, ss, features));
         }
         userRepository.save(user);
     }

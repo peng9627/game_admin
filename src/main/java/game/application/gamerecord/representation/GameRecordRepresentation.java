@@ -1,7 +1,5 @@
 package game.application.gamerecord.representation;
 
-import game.core.enums.GameType;
-
 import java.util.Date;
 
 /**
@@ -15,7 +13,7 @@ public class GameRecordRepresentation {
     private Integer version;
     private Date createDate;
 
-    private GameType gameType;
+    private Integer gameType;
     private Integer roomOwner;
     private String people;
     private Integer gameTotal;
@@ -49,11 +47,11 @@ public class GameRecordRepresentation {
         this.createDate = createDate;
     }
 
-    public GameType getGameType() {
+    public Integer getGameType() {
         return gameType;
     }
 
-    public void setGameType(GameType gameType) {
+    public void setGameType(Integer gameType) {
         this.gameType = gameType;
     }
 

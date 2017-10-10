@@ -1,7 +1,6 @@
 package game.domain.model.arena;
 
 import game.core.enums.ArenaType;
-import game.core.enums.GameType;
 import game.core.id.ConcurrencySafeEntity;
 
 /**
@@ -11,7 +10,7 @@ import game.core.id.ConcurrencySafeEntity;
  */
 public class Arena extends ConcurrencySafeEntity {
 
-    private GameType gameType;              //游戏类型
+    private Integer gameType;              //游戏类型//1.兴宁麻将 2.瑞金麻将 3.跑得快 4.三公 5.松江河
     private ArenaType arenaType;            //竞技类型
     private String name;                    //竞技名
     private Integer count;                  //人数
@@ -19,11 +18,11 @@ public class Arena extends ConcurrencySafeEntity {
     private Integer reward;                 //奖励
     private Boolean status;                 //状态 true为启用
 
-    public GameType getGameType() {
+    public Integer getGameType() {
         return gameType;
     }
 
-    public void setGameType(GameType gameType) {
+    public void setGameType(Integer gameType) {
         this.gameType = gameType;
     }
 

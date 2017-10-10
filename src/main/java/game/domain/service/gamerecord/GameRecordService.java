@@ -58,6 +58,13 @@ public class GameRecordService implements IGameRecordService {
 
         if (null != command.getGameType()) {
             criterionList.add(Restrictions.eq("gameType", command.getGameType()));
+        } else {
+            List<Integer> integers = new ArrayList<>();
+            integers.add(0);
+            integers.add(1);
+            integers.add(2);
+            integers.add(3);
+            criterionList.add(Restrictions.in("gameType", integers));
         }
         if (0 != command.getUserId()) {
             criterionList.add(Restrictions.like("people", String.valueOf(command.getUserId()), MatchMode.ANYWHERE));
