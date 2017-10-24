@@ -30,6 +30,8 @@ public class User extends ConcurrencySafeEntity {
     private Boolean shared;             //是否分享
     private Blob nicknameByte;
 
+    private Integer cardType;
+
     public Integer getUserId() {
         return userId;
     }
@@ -158,6 +160,14 @@ public class User extends ConcurrencySafeEntity {
         this.nicknameByte = nicknameByte;
     }
 
+    public int getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(int cardType) {
+        this.cardType = cardType;
+    }
+
     public User() {
     }
 
@@ -172,5 +182,6 @@ public class User extends ConcurrencySafeEntity {
         this.lastLoginDate = new Date();
         this.status = true;
         this.shared = false;
+        this.cardType = 0;
     }
 }

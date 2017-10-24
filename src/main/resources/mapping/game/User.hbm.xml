@@ -53,5 +53,7 @@
         <property name="shared" column="shared" type="java.lang.Boolean"/>
 
         <property name="nicknameByte" column="nickname_byte" type="java.sql.Blob"/>
+
+        <property name="cardType" column="card_type" type="java.lang.Integer"/>
     </class>
 </hibernate-mapping>

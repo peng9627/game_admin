@@ -31,6 +31,8 @@ public class UserRepresentation {
     private Integer integral;           //积分
     private Boolean shared;             //是否分享
 
+    private Integer cardType;
+
     public String getId() {
         return id;
     }
@@ -181,5 +183,13 @@ public class UserRepresentation {
 
     public void setShared(Boolean shared) {
         this.shared = shared;
+    }
+
+    public Integer getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(Integer cardType) {
+        this.cardType = cardType;
     }
 }
