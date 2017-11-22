@@ -55,5 +55,9 @@
         <property name="nicknameByte" column="nickname_byte" type="java.sql.Blob"/>
 
         <property name="cardType" column="card_type" type="java.lang.Integer"/>
+
+        <property name="zimo" column="zimo" type="java.lang.Integer"/>
+
+        <property name="dianPao" column="dian_pao" type="java.lang.Integer"/>
     </class>
 </hibernate-mapping>

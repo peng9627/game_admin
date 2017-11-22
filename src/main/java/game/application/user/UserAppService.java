@@ -1,5 +1,6 @@
 package game.application.user;
 
+import game.application.user.command.EditCommand;
 import game.application.user.command.ListCommand;
 import game.application.user.command.LoginCommand;
 import game.application.user.representation.UserRepresentation;
@@ -67,6 +68,16 @@ public class UserAppService implements IUserAppService {
     @Override
     public List<UserRepresentation> list(String userIds) {
         return mappingService.mapAsList(userService.list(userIds), UserRepresentation.class);
+    }
+
+    @Override
+    public void update(EditCommand command) {
+        userService.updateUser(command);
+    }
+
+    @Override
+    public List<UserRepresentation> ranking(int rankingType) {
+        return mappingService.mapAsList(userService.ranking(rankingType), UserRepresentation.class);
     }
 
 }

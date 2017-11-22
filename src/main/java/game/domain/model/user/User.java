@@ -31,6 +31,8 @@ public class User extends ConcurrencySafeEntity {
     private Blob nicknameByte;
 
     private Integer cardType;
+    private Integer dianPao;
+    private Integer zimo;
 
     public Integer getUserId() {
         return userId;
@@ -168,6 +170,26 @@ public class User extends ConcurrencySafeEntity {
         this.cardType = cardType;
     }
 
+    public void setCardType(Integer cardType) {
+        this.cardType = cardType;
+    }
+
+    public Integer getDianPao() {
+        return dianPao;
+    }
+
+    public void setDianPao(Integer dianPao) {
+        this.dianPao = dianPao;
+    }
+
+    public Integer getZimo() {
+        return zimo;
+    }
+
+    public void setZimo(Integer zimo) {
+        this.zimo = zimo;
+    }
+
     public User() {
     }
 
@@ -183,5 +205,7 @@ public class User extends ConcurrencySafeEntity {
         this.status = true;
         this.shared = false;
         this.cardType = 0;
+        this.zimo = 0;
+        this.dianPao = 0;
     }
 }

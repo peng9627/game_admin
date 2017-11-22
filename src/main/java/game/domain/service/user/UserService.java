@@ -3,6 +3,7 @@ package game.domain.service.user;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import game.application.moneydetailed.command.CreateCommand;
+import game.application.user.command.EditCommand;
 import game.application.user.command.ListCommand;
 import game.application.user.command.LoginCommand;
 import game.core.api.SocketRequest;
@@ -26,8 +27,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -174,7 +173,7 @@ public class UserService implements IUserService {
             int ss = SerializerFeature.config(JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.WriteEnumUsingName, false);
             SocketRequest socketRequest = new SocketRequest();
             socketRequest.setUserId(userId);
-            CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10110/1", JSON.toJSONString(socketRequest, ss, features));
+            CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10410/1", JSON.toJSONString(socketRequest, ss, features));
         }
         userRepository.save(user);
     }
@@ -210,10 +209,37 @@ public class UserService implements IUserService {
         return userRepository.list(criterionList, null);
     }
 
-    private void writeInt(OutputStream s, int v) throws IOException {
-        s.write((v >>> 24) & 0xFF);
-        s.write((v >>> 16) & 0xFF);
-        s.write((v >>> 8) & 0xFF);
-        s.write((v) & 0xFF);
+    @Override
+    public void updateUser(EditCommand command) {
+        User user = searchByUserId(command.getUserId());
+        if (null != user) {
+            if (0 != command.getDianPao()) {
+                user.setDianPao(user.getDianPao() + command.getDianPao());
+            }
+            if (0 != command.getZimo()) {
+                user.setZimo(user.getZimo() + command.getZimo());
+            }
+            if (0 != command.getGameCount()) {
+                user.setGameCount(user.getGameCount() + command.getGameCount());
+            }
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public List<User> ranking(int rankingType) {
+        List<Order> orders = new ArrayList<>();
+        switch (rankingType) {
+            case 0:
+                orders.add(Order.desc("dianPao"));
+                break;
+            case 1:
+                orders.add(Order.desc("zimo"));
+                break;
+            case 2:
+                orders.add(Order.desc("gameCount"));
+                break;
+        }
+        return userRepository.list(null, orders, null, null, null, 10);
     }
 }

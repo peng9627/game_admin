@@ -92,7 +92,9 @@ public class CoreHttpUtils {
             // Send data
             PrintWriter pw = new PrintWriter(new OutputStreamWriter(conn.getOutputStream(), charset));
             // pa为请求的参数
-            pw.print(pa);
+            if (null != pa) {
+                pw.print(pa);
+            }
             pw.flush();
             pw.close();
 

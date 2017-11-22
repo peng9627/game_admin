@@ -99,10 +99,22 @@
 
         <version.proguard.plugin>5.2.1</version.proguard.plugin>
         <version.wvengen.plugin>2.0.13</version.wvengen.plugin>
+
+
+        <version.zxing>3.3.0</version.zxing>
     </properties>
 
 
     <dependencies>
+
+
+        <!-- QRcode -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>${version.zxing}</version>
+        </dependency>
+        <!-- End QRcode -->
 
         <!-- Log -->
         <dependency>

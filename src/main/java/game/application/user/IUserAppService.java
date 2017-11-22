@@ -1,5 +1,6 @@
 package game.application.user;
 
+import game.application.user.command.EditCommand;
 import game.application.user.command.ListCommand;
 import game.application.user.command.LoginCommand;
 import game.application.user.representation.UserRepresentation;
@@ -24,4 +25,8 @@ public interface IUserAppService {
     void share(Integer userId);
 
     List<UserRepresentation> list(String userIds);
+
+    void update(EditCommand command);
+
+    List<UserRepresentation> ranking(int rankingType);
 }

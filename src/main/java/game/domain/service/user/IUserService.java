@@ -1,5 +1,6 @@
 package game.domain.service.user;
 
+import game.application.user.command.EditCommand;
 import game.application.user.command.ListCommand;
 import game.application.user.command.LoginCommand;
 import game.domain.model.user.User;
@@ -31,4 +32,8 @@ public interface IUserService {
     void share(Integer userId);
 
     List<User> list(String userIds);
+
+    void updateUser(EditCommand command);
+
+    List<User> ranking(int rankingType);
 }

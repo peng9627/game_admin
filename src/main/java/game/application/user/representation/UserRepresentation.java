@@ -32,6 +32,8 @@ public class UserRepresentation {
     private Boolean shared;             //是否分享
 
     private Integer cardType;
+    private Integer dianPao;
+    private Integer zimo;
 
     public String getId() {
         return id;
@@ -191,5 +193,21 @@ public class UserRepresentation {
 
     public void setCardType(Integer cardType) {
         this.cardType = cardType;
+    }
+
+    public Integer getDianPao() {
+        return dianPao;
+    }
+
+    public void setDianPao(Integer dianPao) {
+        this.dianPao = dianPao;
+    }
+
+    public Integer getZimo() {
+        return zimo;
+    }
+
+    public void setZimo(Integer zimo) {
+        this.zimo = zimo;
     }
 }
