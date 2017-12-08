@@ -231,10 +231,10 @@ public class RechargeService implements IRechargeService {
                 jsonObject.put("target", recharge.getUserId());
                 jsonObject.put("card", recharge.getMoney().intValue());
                 jsonObject.put("enc", CoreStringUtils.md5(998 + "&_&" + 0 + "&_&" + recharge.getUserId() + "&_&" + recharge.getMoney().intValue() + "&_&" + 0 + "&_&" + gameServer.getKey(), 32, false, "utf-8"));
-                String s = CoreHttpUtils.urlConnection(gameServer.getUrl(), jsonObject.toJSONString());
-//                if (!CoreStringUtils.isEmpty(s)) {
-//                    JSONObject result = JSONObject.parseObject(s);
-//                }
+                String s = CoreHttpUtils.urlConnection(gameServer.getUrl(), "add_card=" + jsonObject.toJSONString());
+                if (!CoreStringUtils.isEmpty(s)) {
+                    JSONObject result = JSONObject.parseObject(s);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
