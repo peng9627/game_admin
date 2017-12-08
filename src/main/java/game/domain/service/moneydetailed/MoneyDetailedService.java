@@ -8,6 +8,7 @@ import game.core.util.CoreStringUtils;
 import game.domain.model.moneydetailed.IMoneyDetailedRepository;
 import game.domain.model.moneydetailed.MoneyDetailed;
 import game.domain.model.user.User;
+import game.domain.service.rewarddetailed.IRewardDetailedService;
 import game.domain.service.user.IUserService;
 import game.infrastructure.persistence.hibernate.generic.Pagination;
 import org.hibernate.criterion.Criterion;
@@ -17,6 +18,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,13 +33,15 @@ import java.util.Map;
 public class MoneyDetailedService implements IMoneyDetailedService {
 
     private final IMoneyDetailedRepository<MoneyDetailed, String> moneyDetailedRepository;
+    private final IRewardDetailedService rewardDetailedService;
 
     @Autowired
     private IUserService userService;
 
     @Autowired
-    public MoneyDetailedService(IMoneyDetailedRepository<MoneyDetailed, String> moneyDetailedRepository) {
+    public MoneyDetailedService(IMoneyDetailedRepository<MoneyDetailed, String> moneyDetailedRepository, IRewardDetailedService rewardDetailedService) {
         this.moneyDetailedRepository = moneyDetailedRepository;
+        this.rewardDetailedService = rewardDetailedService;
     }
 
     @Override
@@ -52,6 +57,15 @@ public class MoneyDetailedService implements IMoneyDetailedService {
 
             MoneyDetailed moneyDetailed = new MoneyDetailed(user, command.getFlowType(), command.getMoney(), command.getDescription(), oldMoney, user.getMoney());
             moneyDetailedRepository.save(moneyDetailed);
+
+            if (null != user.getParent() && (command.getDescription().contains("AA支付") || command.getDescription().contains("开房间"))) {
+                game.application.rewarddetailed.command.CreateCommand createCommand = new game.application.rewarddetailed.command.CreateCommand();
+                createCommand.setFlowType(FlowType.OUT_FLOW);
+                createCommand.setDescription(user.getUserId() + command.getDescription());
+                createCommand.setMoney(BigDecimal.valueOf(command.getMoney()).divide(BigDecimal.valueOf(10), 2, RoundingMode.HALF_UP));
+                createCommand.setUserId(user.getParent().getUserId());
+                rewardDetailedService.create(createCommand);
+            }
         } else {
             int oldMoney = user.getMoney();
 
@@ -61,6 +75,15 @@ public class MoneyDetailedService implements IMoneyDetailedService {
 
             MoneyDetailed moneyDetailed = new MoneyDetailed(user, command.getFlowType(), command.getMoney(), command.getDescription(), oldMoney, user.getMoney());
             moneyDetailedRepository.save(moneyDetailed);
+
+            if (null != user.getParent() && (command.getDescription().contains("AA支付") || command.getDescription().contains("开房间"))) {
+                game.application.rewarddetailed.command.CreateCommand createCommand = new game.application.rewarddetailed.command.CreateCommand();
+                createCommand.setFlowType(FlowType.IN_FLOW);
+                createCommand.setDescription(user.getUserId() + command.getDescription());
+                createCommand.setMoney(BigDecimal.valueOf(command.getMoney()).divide(BigDecimal.valueOf(10), 2, RoundingMode.HALF_UP));
+                createCommand.setUserId(user.getParent().getUserId());
+                rewardDetailedService.create(createCommand);
+            }
         }
     }
 

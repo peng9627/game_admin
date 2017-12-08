@@ -1,5 +1,6 @@
 package game.application.user;
 
+import com.alibaba.fastjson.JSONObject;
 import game.application.user.command.EditCommand;
 import game.application.user.command.ListCommand;
 import game.application.user.command.LoginCommand;
@@ -29,4 +30,8 @@ public interface IUserAppService {
     void update(EditCommand command);
 
     List<UserRepresentation> ranking(int rankingType);
+
+    int spreadCount(int userId);
+
+    UserRepresentation loginAndBindParent(JSONObject userinfoJson);
 }

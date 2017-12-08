@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>创米盛游</title>
+    <link rel="stylesheet" href="/resources/css/base.css">
+    <link rel="stylesheet" href="/resources/css/index.css">
+    <script src="/resources/js/jquery-3.1.1.min.js"></script>
+    <script src="/resources/js/swiper.min.js"></script>
+    <script src="/resources/js/base.js"></script>
+
+</head>
+<body>
+<!-- 头部 -->
+<header id="header">
+    <div class="headerIcon">
+        <a href="/user/person"><img src="/resources/img/icon.jpg" alt=""></a>
+    </div>
+    <div class="topTitle">创米盛游</div>
+    <div class="shareBtn">...</div>
+</header>
+<!-- 轮播图 -->
+<div class="banner">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <img src="/resources/img/banner1.png" class="swiper-slide">
+            <img src="/resources/img/banner2.png" class="swiper-slide">
+            <img src="/resources/img/banner3.png" class="swiper-slide">
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+<!-- 内容主体 -->
+<div id="container">
+    <nav id="subNav">
+        <div class="row">
+            <a href="/resources/html/popularize.html?${userinfo.reward}">
+                <i class="iconfont icon-tuiguangyuan_yongjintixian_icon"></i>
+                <p>推广佣金</p>
+            </a>
+            <a href="/resources/html/chargeManagement.html">
+                <i class="iconfont icon-chongzhi2"></i>
+                <p>充值中心</p>
+            </a>
+            <a href="/resources/html/agentManage.html">
+                <i class="iconfont icon-dailishangguanli"></i>
+                <p>代理管理</p>
+            </a>
+            <a href="/resources/html/exchangeManage.html">
+                <i class="iconfont icon-duihuan"></i>
+                <p>兑换管理</p>
+            </a>
+            <a href="/resources/html/roleManage.html">
+                <i class="iconfont icon-jiaoseguanli"></i>
+                <p>角色管理</p>
+            </a>
+            <a href="#">
+                <i class="iconfont icon-xxiajidailifencheng"></i>
+                <p>我的下线</p>
+            </a>
+        </div>
+    </nav>
+</div>
+<!-- 底部导航 -->
+<nav id="menu">
+    <ul>
+        <li>
+            <a href="#">
+                <div class="icon icon1">
+                    <!-- <img src="/resources/img/home.png" data-src="/resources/img/home2.png"/> -->
+                    <i class="iconfont icon-home"></i>
+                </div>
+                <p>首页</p>
+                <span class="tips">12</span>
+            </a>
+        </li>
+        <li>
+            <a href="/resources/html/userManage.html">
+                <div class="icon icon2">
+                    <i class="iconfont icon-yonghuguanli"></i>
+                </div>
+                <p>用户管理</p>
+                <span class="tips">12</span>
+            </a>
+        </li>
+        <li>
+            <a href="/resources/html/infomationManage.html">
+                <div class="icon icon3">
+                    <i class="iconfont icon-xinxiguanli"></i>
+                </div>
+                <p>信息管理</p>
+                <span class="tips">12</span>
+            </a>
+        </li>
+        <li>
+            <a href="/user/person">
+                <div class="icon icon4">
+                    <i class="iconfont icon-gerenzhongxin"></i>
+                </div>
+                <p>个人中心</p>
+                <span class="tips">12</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>
+
+<script>
+    $(function () {
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination', //分页导航显示位置
+            spaceBetween: 0, //轮播图片间隔
+            centeredSlides: true,//图片居中显示
+            autoplay: 2500,	//自动轮播时间间隔
+            autoplayDisableOnInteraction: false,  //用户华东后是否停止自动轮播
+            loop: true //是否循环滚动
+        });
+    });
+</script>

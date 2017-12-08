@@ -1,5 +1,6 @@
 package game.application.user;
 
+import com.alibaba.fastjson.JSONObject;
 import game.application.user.command.EditCommand;
 import game.application.user.command.ListCommand;
 import game.application.user.command.LoginCommand;
@@ -78,6 +79,16 @@ public class UserAppService implements IUserAppService {
     @Override
     public List<UserRepresentation> ranking(int rankingType) {
         return mappingService.mapAsList(userService.ranking(rankingType), UserRepresentation.class);
+    }
+
+    @Override
+    public int spreadCount(int userId) {
+        return userService.spreadCount(userId);
+    }
+
+    @Override
+    public UserRepresentation loginAndBindParent(JSONObject userinfoJson) {
+        return mappingService.map(userService.loginAndBindParent(userinfoJson), UserRepresentation.class, false);
     }
 
 }

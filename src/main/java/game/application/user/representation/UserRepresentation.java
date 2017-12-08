@@ -3,6 +3,7 @@ package game.application.user.representation;
 import game.core.enums.ClientAgent;
 import game.core.enums.Sex;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -34,6 +35,9 @@ public class UserRepresentation {
     private Integer cardType;
     private Integer dianPao;
     private Integer zimo;
+    private Integer parentId;
+    private BigDecimal reward;
+    private int spreadCount;
 
     public String getId() {
         return id;
@@ -209,5 +213,29 @@ public class UserRepresentation {
 
     public void setZimo(Integer zimo) {
         this.zimo = zimo;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public BigDecimal getReward() {
+        return reward;
+    }
+
+    public void setReward(BigDecimal reward) {
+        this.reward = reward;
+    }
+
+    public int getSpreadCount() {
+        return spreadCount;
+    }
+
+    public void setSpreadCount(int spreadCount) {
+        this.spreadCount = spreadCount;
     }
 }

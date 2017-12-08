@@ -1,14 +1,17 @@
 package game.domain.service.user;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import game.application.moneydetailed.command.CreateCommand;
 import game.application.user.command.EditCommand;
 import game.application.user.command.ListCommand;
 import game.application.user.command.LoginCommand;
 import game.core.api.SocketRequest;
+import game.core.enums.ClientAgent;
 import game.core.enums.EnableStatus;
 import game.core.enums.FlowType;
+import game.core.enums.Sex;
 import game.core.exception.ExistException;
 import game.core.exception.NoFoundException;
 import game.core.util.CoreDateUtils;
@@ -222,6 +225,14 @@ public class UserService implements IUserService {
             if (0 != command.getGameCount()) {
                 user.setGameCount(user.getGameCount() + command.getGameCount());
             }
+            if (0 != command.getParent()) {
+                java.lang.System.out.println("parent" + command.getParent());
+                User parent = searchByUserId(command.getParent());
+                if (null == parent) {
+                    throw new NoFoundException();
+                }
+                user.setParent(parent);
+            }
             userRepository.save(user);
         }
     }
@@ -241,5 +252,31 @@ public class UserService implements IUserService {
                 break;
         }
         return userRepository.list(null, orders, null, null, null, 10);
+    }
+
+    @Override
+    public int spreadCount(int userId) {
+        return userRepository.spreadCount(userId);
+    }
+
+    @Override
+    public User loginAndBindParent(JSONObject userinfoJson) {
+        LoginCommand loginCommand = new LoginCommand();
+        loginCommand.setIp("");
+        loginCommand.setAgent(ClientAgent.PC);
+        loginCommand.setArea("");
+        loginCommand.setHead(userinfoJson.getString("headimgurl"));
+        loginCommand.setNickname(userinfoJson.getString("nickname"));
+        loginCommand.setSex(1 == userinfoJson.getIntValue("sex") ? Sex.MAN : Sex.WOMAN);
+        loginCommand.setWeChatNo(userinfoJson.getString("unionid"));
+        User user = weChatLogin(loginCommand);
+
+        if (null != user && null == user.getParent()) {
+            EditCommand editCommand = new EditCommand();
+            editCommand.setUserId(user.getUserId());
+            editCommand.setParent(userinfoJson.getIntValue("parent"));
+            updateUser(editCommand);
+        }
+        return user;
     }
 }

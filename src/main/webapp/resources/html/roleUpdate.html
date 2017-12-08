@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>创米盛游-修改角色</title>
+    <link rel="stylesheet" href="/resources/css/base.css">
+    <link rel="stylesheet" href="/resources/css/roleAdd.css">
+    <script src="/resources/js/jquery-3.1.1.min.js"></script>
+    <script src="/resources/js/base.js"></script>
+</head>
+<body>
+<!-- 子页头部 -->
+<header id="header">
+    <div class="backPage">
+        <a href="roleManage.html"><i class="iconfont icon-icon"></i></a>
+    </div>
+    <div class="topTitle">修改角色</div>
+</header>
+<!-- 内容 -->
+<div id="container">
+    <form action="#" method="POST">
+        <div class="roleBox">
+            <div class="row">
+                <label>角色名称</label>
+                <input type="text" class="tex" required>
+            </div>
+            <div class="row">
+                <label>角色描述</label>
+                <input type="text" class="tex" required>
+            </div>
+            <label class="openTab">修改角色权限▼</label>
+            <div class="rowGroup">
+                <!-- 代理管理 -->
+                <div class="row">
+                    <p>
+                        <span>代理管理</span>
+                        （为了不影响游戏玩法，请认真勾选）
+                    </p>
+                    <ul>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">代理管理</label>
+                            <label><input type="checkbox" class="checkBox">茶楼管理</label>
+                            <label><input type="checkbox" class="checkBox">新增茶楼</label>
+                            <label><input type="checkbox" class="checkBox">修改茶楼</label>
+                            <label><input type="checkbox" class="checkBox">删除茶楼</label>
+                            <label><input type="checkbox" class="checkBox">查询</label>
+                        </li>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">代理列表</label>
+                            <label><input type="checkbox" class="checkBox">用户管理</label>
+                            <label><input type="checkbox" class="checkBox">删除用户</label>
+                            <label><input type="checkbox" class="checkBox">更新用户</label>
+                            <label><input type="checkbox" class="checkBox">添加用户</label>
+                            <label><input type="checkbox" class="checkBox">为代理添加房卡</label>
+                        </li>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">用户信息</label>
+                            <label><input type="checkbox" class="checkBox">查看用户信息</label>
+                            <label><input type="checkbox" class="checkBox">加卡</label>
+                            <label><input type="checkbox" class="checkBox">封停</label>
+                            <label><input type="checkbox" class="checkBox">删除茶楼</label>
+                            <label><input type="checkbox" class="checkBox">查询</label>
+                        </li>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">代理加卡</label>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 充值管理 -->
+                <div class="row">
+                    <p>
+                        <span>充值管理</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">充值管理</label>
+                            <label><input type="checkbox" class="checkBox">充值记录</label>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 兑换管理 -->
+                <div class="row">
+                    <p>
+                        <span>兑换管理</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">兑换管理</label>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 信息管理 -->
+                <div class="row">
+                    <p>
+                        <span>信息管理</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">信息管理</label>
+                            <label><input type="checkbox" class="checkBox">新建消息</label>
+                            <label><input type="checkbox" class="checkBox">删除消息</label>
+                            <label><input type="checkbox" class="checkBox">修改消息</label>
+                        </li>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">跑马灯</label>
+                            <label><input type="checkbox" class="checkBox">查看跑马灯</label>
+                            <label><input type="checkbox" class="checkBox">删除跑马灯</label>
+                            <label><input type="checkbox" class="checkBox">添加跑马灯</label>
+                        </li>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">查看分享消息</label>
+                            <label><input type="checkbox" class="checkBox">修改分享消息</label>
+                        </li>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">游戏公告</label>
+                            <label><input type="checkbox" class="checkBox">查看游戏公告</label>
+                            <label><input type="checkbox" class="checkBox">修改游戏公告</label>
+                            <label><input type="checkbox" class="checkBox">查看公告内容</label>
+                            <label><input type="checkbox" class="checkBox">查看游戏公告标题</label>
+                        </li>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">充值联系人</label>
+                            <label><input type="checkbox" class="checkBox">查看充值联系人</label>
+                            <label><input type="checkbox" class="checkBox">删除充值联系人</label>
+                            <label><input type="checkbox" class="checkBox">添加联系人</label>
+                            <label><input type="checkbox" class="checkBox">修改联系人</label>
+                        </li>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">查看信息</label>
+                            <label><input type="checkbox" class="checkBox">添加信息</label>
+                            <label><input type="checkbox" class="checkBox">删除信息</label>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 消费返利 -->
+                <div class="row">
+                    <p>
+                        <span>消费返利</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">消费返利</label>
+                            <label><input type="checkbox" class="checkBox">消费记录</label>
+                            <label><input type="checkbox" class="checkBox">消费查询</label>
+                            <label><input type="checkbox" class="checkBox">返利</label>
+                            <label><input type="checkbox" class="checkBox">返利管理</label>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 系统设置 -->
+                <div class="row">
+                    <p>
+                        <span>系统设置</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">角色管理</label>
+                            <label><input type="checkbox" class="checkBox">新增角色</label>
+                            <label><input type="checkbox" class="checkBox">修改角色</label>
+                            <label><input type="checkbox" class="checkBox">删除角色</label>
+                            <label><input type="checkbox" class="checkBox">查询角色</label>
+                        </li>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">角色分配</label>
+                            <label><input type="checkbox" class="checkBox">删除分配</label>
+                            <label><input type="checkbox" class="checkBox">删除跑马灯</label>
+                            <label><input type="checkbox" class="checkBox">查询</label>
+                        </li>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">个人资料</label>
+                            <label><input type="checkbox" class="checkBox">修改个人资料</label>
+                            <label><input type="checkbox" class="checkBox">修改密码</label>
+                        </li>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">服务器信息</label>
+                            <label><input type="checkbox" class="checkBox">查看服务器信息</label>
+                            <label><input type="checkbox" class="checkBox">修改服务器信息</label>
+                        </li>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">在线人数</label>
+                            <label><input type="checkbox" class="checkBox">查看在线人数</label>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 商户数据 -->
+                <div class="row">
+                    <p>
+                        <span>商户数据</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <label><input type="checkbox" class="checkBox">我的茶楼</label>
+                            <label><input type="checkbox" class="checkBox">我的玩家</label>
+                            <label><input type="checkbox" class="checkBox">玩家消费</label>
+                            <label><input type="checkbox" class="checkBox">我的返利</label>
+                            <label><input type="checkbox" class="checkBox">玩家充值</label>
+                            <label><input type="checkbox" class="checkBox">返利统计</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="添加" class="roleBtn">
+    </form>
+</div>
+</body>
+</html>
+<script>
+    $(function () {
+        $(".openTab").click(function () {
+            $(this).next(".rowGroup").toggle();
+        });
+    });
+</script>

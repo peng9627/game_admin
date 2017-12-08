@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * Author pengyi
@@ -59,12 +57,5 @@ public class ApiIntegralDetailedController extends BaseApiController {
             apiResponse = new ApiResponse(ApiReturnCode.ERROR_UNKNOWN);
         }
         this.returnData(response, apiResponse);
-    }
-
-    private void writeInt(OutputStream s, int v) throws IOException {
-        s.write((v >>> 24) & 0xFF);
-        s.write((v >>> 16) & 0xFF);
-        s.write((v >>> 8) & 0xFF);
-        s.write((v) & 0xFF);
     }
 }

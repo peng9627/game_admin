@@ -3,14 +3,17 @@ package game.interfaces.user.api;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import game.application.user.IUserAppService;
 import game.application.user.command.EditCommand;
 import game.application.user.command.LoginCommand;
 import game.application.user.representation.UserRepresentation;
 import game.core.api.ApiResponse;
 import game.core.api.ApiReturnCode;
+import game.core.api.SocketRequest;
 import game.core.exception.ApiAuthenticationException;
 import game.core.exception.ExistException;
+import game.core.exception.NoFoundException;
 import game.core.util.CoreHttpUtils;
 import game.core.util.CoreStringUtils;
 import game.interfaces.shared.api.BaseApiController;
@@ -69,6 +72,7 @@ public class ApiUserController extends BaseApiController {
             JSONObject command = this.authenticationAndConvert(request, JSONObject.class);
 
             UserRepresentation userRepresentation = userAppService.info(command.getInteger("userId"));
+            userRepresentation.setSpreadCount(userAppService.spreadCount(command.getInteger("userId")));
             apiResponse = new ApiResponse<>(ApiReturnCode.SUCCESS, userRepresentation);
         } catch (ApiAuthenticationException e) {
             logger.warn(e.getMessage());
@@ -166,7 +170,19 @@ public class ApiUserController extends BaseApiController {
         try {
             EditCommand command = this.authenticationAndConvert(request, EditCommand.class);
             userAppService.update(command);
+            if (0 != command.getParent()) {
+                SerializerFeature[] features = new SerializerFeature[]{SerializerFeature.WriteNullListAsEmpty,
+                        SerializerFeature.WriteMapNullValue, SerializerFeature.DisableCircularReferenceDetect,
+                        SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteNullNumberAsZero,
+                        SerializerFeature.WriteNullBooleanAsFalse};
+                int ss = SerializerFeature.config(JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.WriteEnumUsingName, false);
+                SocketRequest socketRequest = new SocketRequest();
+                socketRequest.setUserId(command.getParent());
+                CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10410/1", JSON.toJSONString(socketRequest, ss, features));
+            }
             apiResponse = new ApiResponse<>(ApiReturnCode.SUCCESS);
+        } catch (NoFoundException e) {
+            apiResponse = new ApiResponse<>(ApiReturnCode.NO_FOUND);
         } catch (ApiAuthenticationException e) {
             logger.warn(e.getMessage());
             apiResponse = new ApiResponse<>(ApiReturnCode.AUTHENTICATION_FAILURE);

@@ -45,4 +45,12 @@ public class UserRepository extends AbstractHibernateGenericRepository<User, Str
         return (User) criteria.uniqueResult();
     }
 
+    @Override
+    public int spreadCount(int userId) {
+        Criteria criteria = getSession().createCriteria(this.getPersistentClass());
+        criteria.add(Restrictions.eq("parent.userId", userId));
+        criteria.createAlias("parent", "parent");
+        return criteria.list().size();
+    }
+
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>创米盛游-推广二维码</title>
+    <link rel="stylesheet" href="/resources/css/base.css">
+    <link rel="stylesheet" href="/resources/css/balance.css">
+    <script src="/resources/js/jquery-3.1.1.min.js"></script>
+    <script src="/resources/js/base.js"></script>
+    <script src="/resources/js/jquery.qrcode.min.js"></script>
+    <style>
+        .qrcodeBox {
+            text-align: center;
+            background: #fff;
+            padding: 15px;
+        }
+
+        #qrcode {
+            padding: 15px;
+            background: #fff;
+        }
+
+        #qrcode p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<!-- 子页头部 -->
+<header id="header">
+    <div class="backPage">
+        <a href="/user/person"><i class="iconfont icon-icon"></i></a>
+    </div>
+    <div class="topTitle">推广二维码</div>
+</header>
+<!-- 内容 -->
+<div id="container">
+    <div class="qrcodeBox">
+        <div id="qrcode">
+            <p>长按二维码发送给朋友，或将二维码保存至本地哦！</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    var urlIndex = window.location.href.indexOf("?");
+    if (urlIndex && -1 !== urlIndex) {
+        //生成二维码
+        $('#qrcode').qrcode({
+            text: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2d4606a7e7af7ba9&redirect_uri=http%3a%2f%2frongchanghuyu.chuangmikeji.com%2fuser%2flogin_wechat&response_type=code&scope=snsapi_userinfo&state=" + window.location.href.substring(urlIndex + 1) + "#wechat_redirect" //传入生成二维码的内容
+        });
+        // 将canvas二维码转换成图片 便于手机端存储图片二维码
+        $('#qrcode').append(saveImageInfo());
+
+        function saveImageInfo() {
+            var mycanvas = document.getElementsByTagName("canvas")[0];
+            var image = mycanvas.toDataURL("image/png");
+            return "<img src='" + image + "'/>";
+        }
+    }
+
+
+</script>
+

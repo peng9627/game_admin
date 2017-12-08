@@ -17,4 +17,6 @@ public interface IUserRepository<T, ID extends Serializable> extends IHibernateG
     User searchByUserId(int userId);
 
     User searchByWechat(String wechat);
+
+    int spreadCount(int userId);
 }

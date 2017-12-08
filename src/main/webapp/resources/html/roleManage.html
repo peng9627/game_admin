@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>创米盛游-角色管理</title>
+    <link rel="stylesheet" href="/resources/css/base.css">
+    <script src="/resources/js/jquery-3.1.1.min.js"></script>
+    <script src="/resources/js/base.js"></script>
+    <script src="/resources/js/dropload.min.js"></script>
+
+</head>
+<body>
+<!-- 子页头部 -->
+<header id="header">
+    <div class="backPage">
+        <a href="/index"><i class="iconfont icon-icon"></i></a>
+    </div>
+    <div class="topTitle">角色管理</div>
+    <div class="aLink"><a href="roleAdd.html">新增</a></div>
+</header>
+<!-- 内容 -->
+<div id="container">
+    <form action="#">
+        <div class="search">
+            <i class="iconfont icon-search"></i>
+            <input type="search" class="tex" required placeholder="请输入用户姓名">
+            <button class="searchBtn">
+                查询
+            </button>
+        </div>
+    </form>
+    <div class="tableWrap">
+        <table>
+            <thead>
+            <tr>
+                <th>选项</th>
+                <th>ID</th>
+                <th>角色</th>
+                <th>描述</th>
+                <th colspan="2">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td data-label="选项：">001</td>
+                <td data-label="ID：">123456</td>
+                <td data-label="角色：">超级管理员</td>
+                <td data-label="描述：">掌控雷电</td>
+                <td class="btnGroup">
+                    <a href="roleUpdate.html?id">修改</a>
+                    <a href="#" class="del">删除</a>
+                </td>
+            </tr>
+            <tr>
+                <td data-label="选项：">001</td>
+                <td data-label="ID：">123456</td>
+                <td data-label="角色：">超级管理员</td>
+                <td data-label="描述：">掌控雷电</td>
+                <td class="btnGroup">
+                    <a href="roleUpdate.html?id">修改</a>
+                    <a href="#" class="del">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    // $(function(){
+    //     // 页数
+    //     var page = 0;
+    //     // 每页展示5个
+    //     var size = 5;
+    //     // dropload
+    //     $('#container').dropload({
+    //         scrollArea : window,
+    //         loadDownFn : function(me){
+    //             page++;
+    //             // 拼接HTML
+    //             var result = '';
+    //             $.ajax({
+    //                 type: 'GET',
+    //                 url: 'test.php?page='+page+"&size="+size, //请求地址
+    //                 dataType: 'json',
+    //                 success: function(data){
+    //                     var arrLen = data.length;
+    //                     if(arrLen > 0){
+    //                         //遍历json数据
+    //                      	console.log(data);
+    //                     // 如果没有数据
+    //                     }else{
+    //                         // 锁定
+    //                         me.lock();
+    //                         // 无数据
+    //                         me.noData();
+    //                     }
+    //                     // 为了测试，延迟1秒加载
+    //                     setTimeout(function(){
+    //                         // 插入数据到页面，放到最后面
+
+    //                         // 每次数据插入，必须重置
+    //                         me.resetload();
+    //                     },1000);
+    //                 },
+    //                 error: function(xhr, type){
+    //                     // alert('Ajax error!');
+    //                     console.log("Ajax error!");
+    //                     // 即使加载出错，也得重置
+    //                     me.resetload();
+    //                 }
+    //             });
+    //         }
+    //     });
+    // });
+</script>

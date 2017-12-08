@@ -6,6 +6,7 @@ public class EditCommand {
     private int dianPao;
     private int zimo;
     private int gameCount;
+    private int parent;
 
     public int getUserId() {
         return userId;
@@ -37,5 +38,13 @@ public class EditCommand {
 
     public void setGameCount(int gameCount) {
         this.gameCount = gameCount;
+    }
+
+    public int getParent() {
+        return parent;
+    }
+
+    public void setParent(int parent) {
+        this.parent = parent;
     }
 }

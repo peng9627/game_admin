@@ -242,8 +242,8 @@ public class CoreQRCodeUtils {
 
     public static void main(String[] args) {
         CoreQRCodeUtils
-                .encode("http://songjianghe.chuangmikeji.com/",
-                        1000, 1000, "/home/pengyi/下载/sjh.png", "/home/pengyi/桌面/test.jpg");
+                .encode("http://rchyxz.chuangmikeji.com/",
+                        1000, 1000, "/home/pengyi/下载/rc.png", "/home/pengyi/桌面/test.jpg");
     }
 
 }

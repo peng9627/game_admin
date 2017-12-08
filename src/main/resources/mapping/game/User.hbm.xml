@@ -59,5 +59,10 @@
         <property name="zimo" column="zimo" type="java.lang.Integer"/>
 
         <property name="dianPao" column="dian_pao" type="java.lang.Integer"/>
+
+        <many-to-one name="parent" column="parent" class="game.domain.model.user.User"/>
+
+        <property name="reward" column="reward" type="java.math.BigDecimal"/>
+
     </class>
 </hibernate-mapping>

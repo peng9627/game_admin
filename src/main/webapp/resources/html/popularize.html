@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>创米盛游-推广佣金</title>
+    <link rel="stylesheet" href="/resources/css/base.css">
+    <link rel="stylesheet" href="/resources/css/balance.css">
+    <script src="/resources/js/jquery-3.1.1.min.js"></script>
+    <script src="/resources/js/base.js"></script>
+</head>
+<body>
+<!-- 子页头部 -->
+<header id="header">
+    <div class="backPage">
+        <a href="/index"><i class="iconfont icon-icon"></i></a>
+    </div>
+    <div class="topTitle">推广佣金</div>
+    <div class="aLink"><a href="popularizeBill.html">明细</a></div>
+</header>
+<!-- 内容 -->
+<div id="container">
+    <div class="balanceBox">
+        <div class="availableBalance">
+            <p>可用余额</p>
+            <span id="able_money">￥0.00</span>
+        </div>
+        <div class="totalBalance">
+            <div class="totalBox">
+                <p>总余额(元)</p>
+                <span id="money">￥0.00</span>
+            </div>
+            <div class="totalBox">
+                <p>提现总余额(元)</p>
+                <span>￥0.00</span>
+            </div>
+        </div>
+    </div>
+    <div class="withdrawals">
+        <a href="popularizeCash.html">提现</a>
+    </div>
+</div>
+<script>
+    var urlIndex = window.location.href.indexOf("?");
+    if (urlIndex && -1 !== urlIndex) {
+        $("#able_money").text("￥" + window.location.href.substring(urlIndex + 1));
+        $("#money").text("￥" + window.location.href.substring(urlIndex + 1));
+    }
+</script>
+</body>
+</html>

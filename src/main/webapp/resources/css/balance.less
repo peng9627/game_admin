@@ -1,0 +1,188 @@
+/**
+	余额首页样式
+**/
+.balanceBox {
+  background: #fff;
+  padding: 20/14rem;
+  text-align: center;
+  .availableBalance {
+    padding: 30/14rem 0;
+    border-bottom: 1/14rem solid #f2f2f2;
+    p {
+      color: #999999;
+      font-size: 16/14rem;
+      margin-bottom: 10/14rem;
+    }
+    span {
+      color: #f36d12;
+      font-size: 30/14rem;
+    }
+  }
+  .totalBalance {
+    overflow: hidden;
+    display: flex;
+    padding-top: 15/14rem;
+    justify-content: space-between;
+    .totalBox {
+      width: 50%;
+      border-right: 1/14rem solid #f2f2f2;
+
+      //清除最后一个盒子的边框
+      &:last-child {
+        border: none;
+      }
+      p {
+        color: #999999;
+        font-size: 14/14rem;
+        margin-bottom: 15/14rem !important;
+      }
+      span {
+        color: #666;
+        font-size: 18/14rem;
+      }
+    }
+
+  }
+}
+
+// 提现按钮样式
+.withdrawals {
+  padding: 15/14rem;
+  a {
+    display: block;
+    width: 80%;
+    height: 40/14rem;
+    background: #f36d12;
+    margin: auto;
+    border-radius: 5/14rem;
+    text-align: center;
+    line-height: 40/14rem;
+    background: #2c98e3;
+    color: #fff;
+  }
+}
+
+/**
+	余额明细样式
+**/
+.billGroup {
+  background: #fff;
+  padding: 10/14rem;
+  margin-bottom: 10/14rem;
+  // 一组账单
+  .bill {
+    overflow: hidden;
+    //一条账单
+    .billRow {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1/14rem solid #f2f2f2;
+      padding: 10/14rem 0;
+      padding-right: 20/14rem;
+      .rowLeft {
+        float: left;
+        span {
+          color: #666666;
+          font-size: 16/14rem;
+        }
+        p {
+          font-size: 14/14rem;
+          color: #999999;
+        }
+      }
+      .rowRight {
+        float: right;
+        text-align: right;
+        span {
+          color: #666666;
+          font-size: 14/14rem;
+        }
+        .positive {
+          color: #ff0000;
+        }
+        p {
+          font-size: 12/14rem;
+          color: #999999;
+        }
+      }
+    }
+    // 右键头
+    .icon-arrow-right {
+      position: absolute;
+      top: 20/14rem;
+      right: 0/14rem;
+      color: #8f8f8f;
+    }
+  }
+}
+
+/*
+	佣金提现
+ */
+.label {
+  padding: 15/14rem;
+  font-size: 16/14rem;
+  span {
+    color: #f36d12;
+    font-weight: bold;
+  }
+}
+
+.cashBox {
+  background: #fff;
+  padding: 15/14rem;
+  .cashRow {
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 15/14rem;
+    height: 35/14rem;
+    line-height: 35/14rem;
+    span {
+      position: absolute;
+      left: 0;
+      font-size: 16/14rem;
+      display: inline-block;
+      *display: inline;
+      *zoom: 1;
+      height: 35/14rem !important;
+      text-align: right;
+    }
+    .select {
+      float: right;
+      outline: none;
+      border: none;
+      height: 35/14rem;
+    }
+    .tex {
+      height: 34/14rem;
+      float: right;
+      outline: none;
+      border: none;
+      width: 80%;
+      border-bottom: 1/14rem solid #ccc;
+    }
+  }
+}
+
+/*
+消费详情样式
+*/
+.details {
+  padding: 10/14rem;
+  background: #fff;
+  overflow: hidden;
+  margin-bottom: 10/14rem;
+  .row {
+    overflow: hidden;
+    font-size: 16/14rem;
+    color: #666;
+    line-height: 35/14rem;
+    border-bottom: 1/14rem solid #eee;
+    .rowLeft {
+      float: left;
+    }
+    .rowRight {
+      float: right;
+    }
+  }
+}

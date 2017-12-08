@@ -23,5 +23,16 @@
     <import resource="spring-redis.xml"/>
     <import resource="spring-persistence.xml"/>
     <import resource="spring-upload.xml"/>
+    <import resource="spring-freemarker.xml"/>
 
+    <bean id="idFactory" class="game.core.common.id.IdFactory" init-method="initSequence">
+        <property name="prefix" value="${idFactory.prefix}"/>
+        <property name="suffixLength" value="${idFactory.suffixLength}"/>
+        <property name="sequenceAppService" ref="sequenceAppService"/>
+    </bean>
+
+    <bean id="gameServer" class="game.core.pay.GameServer">
+        <property name="url" value="${gameServer.url}"/>
+        <property name="key" value="${gameServer.key}"/>
+    </bean>
 </beans>

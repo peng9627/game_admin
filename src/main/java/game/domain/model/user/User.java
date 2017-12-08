@@ -4,6 +4,7 @@ import game.core.enums.ClientAgent;
 import game.core.enums.Sex;
 import game.core.id.ConcurrencySafeEntity;
 
+import java.math.BigDecimal;
 import java.sql.Blob;
 import java.util.Date;
 
@@ -33,6 +34,8 @@ public class User extends ConcurrencySafeEntity {
     private Integer cardType;
     private Integer dianPao;
     private Integer zimo;
+    private User parent;
+    private BigDecimal reward;
 
     public Integer getUserId() {
         return userId;
@@ -190,6 +193,22 @@ public class User extends ConcurrencySafeEntity {
         this.zimo = zimo;
     }
 
+    public User getParent() {
+        return parent;
+    }
+
+    public void setParent(User parent) {
+        this.parent = parent;
+    }
+
+    public BigDecimal getReward() {
+        return reward;
+    }
+
+    public void setReward(BigDecimal reward) {
+        this.reward = reward;
+    }
+
     public User() {
     }
 
@@ -207,5 +226,6 @@ public class User extends ConcurrencySafeEntity {
         this.cardType = 0;
         this.zimo = 0;
         this.dianPao = 0;
+        this.reward = BigDecimal.ZERO;
     }
 }

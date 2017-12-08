@@ -1,0 +1,68 @@
+// 轮播样式
+.banner {
+  overflow: hidden;
+}
+
+//内容主体样式
+#container {
+  margin-top: 15/14rem;
+  background: #fff;
+  .row {
+    overflow: hidden;
+    // display:-webkit-box;
+    // display:-webkit-flex;
+    // display:-ms-flexbox;
+    // display:flex;
+    // -webkit-justify-content: space-around;
+    // -ms-flex-pack: distribute;
+    // justify-content: space-around;
+    // border-bottom: 1/14rem solid #eee;
+    padding-left: 3/14rem;
+    a {
+      width: 33.3%;
+      text-align: center;
+      display: block;
+      border: 1/14rem solid #f2f2f2;
+      padding: 20/14rem;
+      flex-grow: inherit;
+      float: left;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      margin-left: -1/14rem;
+      margin-top: -1/14rem;
+      .iconfont {
+        font-size: 35/14rem;
+      }
+      //佣金管理
+      .icon-tuiguangyuan_yongjintixian_icon {
+        color: #ffb415;
+      }
+      // 充值管理
+      .icon-chongzhi2 {
+        color: #f94a00;
+      }
+      // 代理商管理
+      .icon-dailishangguanli {
+        color: #1296db;
+      }
+      // 兑换管理
+      .icon-duihuan {
+        color: #d81e06;
+      }
+      // 角色 管理
+      .icon-jiaoseguanli {
+        color: #1296db;
+      }
+      // 我的下线
+      .icon-xxiajidailifencheng {
+        color: #f94a00;
+      }
+      p {
+        color: #333333;
+      }
+    }
+  }
+}
+
+// 加载轮播样式
+@import "swiper.min.css";

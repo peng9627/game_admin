@@ -29,5 +29,8 @@ public class UserRepresentationMapper extends CustomMapper<User, UserRepresentat
                 e.printStackTrace();
             }
         }
+        if (null != user.getParent()) {
+            userRepresentation.setParentId(user.getParent().getUserId());
+        }
     }
 }
