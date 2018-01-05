@@ -1,5 +1,7 @@
 package game.application.system.representation;
 
+import java.math.BigDecimal;
+
 /**
  * Created by pengyi
  * Date : 17-9-25.
@@ -9,6 +11,7 @@ public class SystemRepresentation {
 
     private int registerGive;           //注册送
     private int shareGive;              //分享送
+    private BigDecimal rechargeRatio;          //充值比例
 
     public int getRegisterGive() {
         return registerGive;
@@ -24,5 +27,13 @@ public class SystemRepresentation {
 
     public void setShareGive(int shareGive) {
         this.shareGive = shareGive;
+    }
+
+    public BigDecimal getRechargeRatio() {
+        return rechargeRatio;
+    }
+
+    public void setRechargeRatio(BigDecimal rechargeRatio) {
+        this.rechargeRatio = rechargeRatio;
     }
 }

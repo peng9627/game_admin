@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSONArray;
  * Created by pengyi on 2016/3/30.
  */
 public class JsonMessage {
-    private String code;
+    private int code;
     private String message;
     private Object data;
 
@@ -14,17 +14,17 @@ public class JsonMessage {
         super();
     }
 
-    public JsonMessage(String code, String message, JSONArray data) {
+    public JsonMessage(int code, String message, JSONArray data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

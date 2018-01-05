@@ -53,9 +53,9 @@ public class RechargeController extends BaseController {
     public JsonMessage recharge(CreateRechargeCommand command, HttpServletRequest request) {
 
         JsonMessage jsonMessage = new JsonMessage();
-        if (null == command.getMoney()) {
-            jsonMessage.setCode("1");
-            jsonMessage.setMessage("money不能为空");
+        if (null == command.getId()) {
+            jsonMessage.setCode(1);
+            jsonMessage.setMessage("id不能为空");
             return jsonMessage;
         }
         try {
@@ -98,7 +98,7 @@ public class RechargeController extends BaseController {
                     wechatPayHandle.setSign(unifiedResponse.getSign());
 
                     jsonMessage.setMessage("成功");
-                    jsonMessage.setCode("0");
+                    jsonMessage.setCode(0);
                     jsonMessage.setData(wechatPayHandle);
                     return jsonMessage;
                 }
@@ -113,16 +113,16 @@ public class RechargeController extends BaseController {
                 e.printStackTrace();
             }
             jsonMessage.setMessage("下单失败");
-            jsonMessage.setCode("1");
+            jsonMessage.setCode(1);
             return jsonMessage;
         } catch (NoLoginException e) {
             logger.warn(e.getMessage());
-            jsonMessage.setCode("1");
+            jsonMessage.setCode(1);
             jsonMessage.setMessage(e.getMessage());
             return jsonMessage;
         } catch (Exception e) {
             logger.warn(e.getMessage());
-            jsonMessage.setCode("1");
+            jsonMessage.setCode(1);
             jsonMessage.setMessage("下单失败");
             return jsonMessage;
         }

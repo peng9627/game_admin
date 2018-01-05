@@ -18,6 +18,8 @@
 
         <property name="money" column="money" type="java.math.BigDecimal"/>
 
+        <property name="payTime" column="pay_time" type="java.util.Date"/>
+
         <property name="payType" column="pay_type">
             <type name="org.hibernate.type.EnumType">
                 <param name="enumClass">game.core.enums.PayType</param>

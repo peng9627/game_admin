@@ -7,6 +7,7 @@ import game.application.recharge.command.ListRechargeCommand;
 import game.core.common.id.IdFactory;
 import game.core.enums.FlowType;
 import game.core.enums.YesOrNoStatus;
+import game.core.exception.NoFoundException;
 import game.core.pay.GameServer;
 import game.core.pay.wechat.WechatNotify;
 import game.core.util.CoreDateUtils;
@@ -14,6 +15,7 @@ import game.core.util.CoreHttpUtils;
 import game.core.util.CoreStringUtils;
 import game.domain.model.recharge.IRechargeRepository;
 import game.domain.model.recharge.Recharge;
+import game.domain.model.recharge.RechargeSelect;
 import game.domain.model.system.System;
 import game.domain.service.moneydetailed.IMoneyDetailedService;
 import game.domain.service.system.ISystemService;
@@ -44,17 +46,19 @@ public class RechargeService implements IRechargeService {
     private final IdFactory idFactory;
     private final ISystemService systemService;
     private final GameServer gameServer;
+    private final IRechargeSelectService rechargeSelectService;
 
     @Autowired
     private IMoneyDetailedService moneyDetailedService;
 
     @Autowired
-    public RechargeService(IRechargeRepository<Recharge, String> rechargeRepository, IUserService userService, IdFactory idFactory, ISystemService systemService, GameServer gameServer) {
+    public RechargeService(IRechargeRepository<Recharge, String> rechargeRepository, IUserService userService, IdFactory idFactory, ISystemService systemService, GameServer gameServer, IRechargeSelectService rechargeSelectService) {
         this.rechargeRepository = rechargeRepository;
         this.userService = userService;
         this.idFactory = idFactory;
         this.systemService = systemService;
         this.gameServer = gameServer;
+        this.rechargeSelectService = rechargeSelectService;
     }
 
     @Override
@@ -209,8 +213,12 @@ public class RechargeService implements IRechargeService {
 
     @Override
     public Recharge recharge(CreateRechargeCommand command) {
+        RechargeSelect rechargeSelect = rechargeSelectService.getById(command.getId());
+        if (null == rechargeSelect) {
+            throw new NoFoundException("id为" + command.getId() + "的记录不存在");
+        }
         String no = idFactory.getNextId();
-        Recharge recharge = new Recharge(no, command.getUserId(), command.getMoney(), YesOrNoStatus.NO, command.getPayType());
+        Recharge recharge = new Recharge(no + rechargeSelect.getType(), command.getUserId(), rechargeSelect.getPrice(), YesOrNoStatus.NO, command.getPayType());
         rechargeRepository.save(recharge);
         return recharge;
     }
@@ -218,19 +226,25 @@ public class RechargeService implements IRechargeService {
     @Override
     public void apiWechatSuccess(WechatNotify notify) {
         Recharge recharge = this.searchByNo(notify.getOut_trade_no());
-        if (null != recharge && null == recharge.getPayTime()) {
+        if (null != recharge && null == recharge.getPayTime() && 0 != recharge.getIsSuccess().compareTo(YesOrNoStatus.YES)) {
             recharge.changePayTime(CoreDateUtils.parseDate(notify.getTime_end(), "yyyyMMddHHmmss"));
             recharge.changePayNo(notify.getTransaction_id());
             recharge.changeIsSuccess(YesOrNoStatus.YES);
-            recharge.changePayNo(notify.getOut_trade_no());
+            recharge.changePayNo(notify.getTransaction_id());
             rechargeRepository.update(recharge);
 
+            System system = systemService.info();
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("manager", 998);
                 jsonObject.put("target", recharge.getUserId());
-                jsonObject.put("card", recharge.getMoney().intValue());
-                jsonObject.put("enc", CoreStringUtils.md5(998 + "&_&" + 0 + "&_&" + recharge.getUserId() + "&_&" + recharge.getMoney().intValue() + "&_&" + 0 + "&_&" + gameServer.getKey(), 32, false, "utf-8"));
+                if ("1".equals(recharge.getRechargeNo().substring(recharge.getRechargeNo().length() - 1))) {
+                    jsonObject.put("card", recharge.getMoney().multiply(system.getRechargeRatio()));
+                    jsonObject.put("enc", CoreStringUtils.md5(998 + "&_&" + 0 + "&_&" + recharge.getUserId() + "&_&" + recharge.getMoney().multiply(system.getRechargeRatio()) + "&_&" + 0 + "&_&" + gameServer.getKey(), 32, false, "utf-8"));
+                } else {
+                    jsonObject.put("gold", recharge.getMoney().multiply(system.getRechargeRatio()));
+                    jsonObject.put("enc", CoreStringUtils.md5(998 + "&_&" + 0 + "&_&" + recharge.getUserId() + "&_&" + 0 + "&_&" + recharge.getMoney().multiply(system.getRechargeRatio()) + "&_&" + gameServer.getKey(), 32, false, "utf-8"));
+                }
                 String s = CoreHttpUtils.urlConnection(gameServer.getUrl(), "add_card=" + jsonObject.toJSONString());
                 if (!CoreStringUtils.isEmpty(s)) {
                     JSONObject result = JSONObject.parseObject(s);

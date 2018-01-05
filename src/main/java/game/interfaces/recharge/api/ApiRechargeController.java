@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * 充值记录api接口
@@ -55,7 +54,7 @@ public class ApiRechargeController extends BaseApiController {
     }
 
     @RequestMapping(value = "/wechat/notify")
-    public String rechargeWecatNotify(HttpServletRequest request, Locale locale) {
+    public void rechargeWecatNotify(HttpServletRequest request, HttpServletResponse response) {
         int contentLength = request.getContentLength();
         byte[] bytes = new byte[contentLength];
         WechatNotify notify = null;
@@ -80,10 +79,10 @@ public class ApiRechargeController extends BaseApiController {
                         if (notify.getResult_code().equals("SUCCESS")) {
                             rechargeAppService.wechatSuccess(notify);
                             logger.info("充值流水号为[" + notify.getOut_trade_no() + "]的订单支付成功，支付方式为[" + PayType.WECHAT + "]");
-                            return "<xml>\n" +
+                            response.getWriter().write("<xml>\n" +
                                     "  <return_code><![CDATA[SUCCESS]]></return_code>\n" +
                                     "  <return_msg><![CDATA[OK]]></return_msg>\n" +
-                                    "</xml>";
+                                    "</xml>");
                         } else {
                             logger.info("充值流水号为[" + notify.getOut_trade_no() + "]的订单支付失败，原因[" + notify.getErr_code_des() + "]");
                         }
@@ -101,11 +100,6 @@ public class ApiRechargeController extends BaseApiController {
             }
 
         }
-
-        return "<xml>\n" +
-                "  <return_code><![CDATA[FAIL]]></return_code>\n" +
-                "  <return_msg><![CDATA[错误]]></return_msg>\n" +
-                "</xml>";
     }
 
 }

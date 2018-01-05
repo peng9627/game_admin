@@ -9,5 +9,5 @@ import game.application.system.representation.SystemRepresentation;
  */
 public interface ISystemAppService {
 
-    SystemRepresentation info(Integer userId);
+    SystemRepresentation info();
 }

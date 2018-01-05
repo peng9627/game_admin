@@ -22,8 +22,8 @@ public class Recharge extends ConcurrencySafeEntity {
     private String payNo;
     private Date payTime;
 
-    public void changePayNo(String rechargeNo) {
-        this.rechargeNo = rechargeNo;
+    public void changePayNo(String payNo) {
+        this.payNo = payNo;
     }
 
     public void changeIsSuccess(YesOrNoStatus isSuccess) {

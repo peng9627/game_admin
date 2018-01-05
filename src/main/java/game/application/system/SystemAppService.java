@@ -25,7 +25,7 @@ public class SystemAppService implements ISystemAppService {
     }
 
     @Override
-    public SystemRepresentation info(Integer userId) {
+    public SystemRepresentation info() {
         return mappingService.map(systemService.info(), SystemRepresentation.class, false);
     }
 }

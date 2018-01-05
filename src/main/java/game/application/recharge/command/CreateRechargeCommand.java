@@ -14,6 +14,7 @@ public class CreateRechargeCommand {
     private int userId;
     private PayType payType;
     private String ip;
+    private String id;
 
     public BigDecimal getMoney() {
         return money;
@@ -45,6 +46,14 @@ public class CreateRechargeCommand {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
 
