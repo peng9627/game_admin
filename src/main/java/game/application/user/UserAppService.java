@@ -91,4 +91,9 @@ public class UserAppService implements IUserAppService {
         return mappingService.map(userService.loginAndBindParent(userinfoJson), UserRepresentation.class, false);
     }
 
+    @Override
+    public void addCount(int userId, boolean create) {
+        userService.addGameCount(userId, create);
+    }
+
 }

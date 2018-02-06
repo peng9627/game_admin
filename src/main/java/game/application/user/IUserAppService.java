@@ -34,4 +34,6 @@ public interface IUserAppService {
     int spreadCount(int userId);
 
     UserRepresentation loginAndBindParent(JSONObject userinfoJson);
+
+    void addCount(int userId, boolean create);
 }

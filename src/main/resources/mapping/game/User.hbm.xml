@@ -44,6 +44,8 @@
 
         <property name="todayGameCount" column="today_game_count" type="java.lang.Integer"/>
 
+        <property name="todayCreateGameCount" column="today_create_game_count" type="java.lang.Integer"/>
+
         <property name="lastLoginDate" column="last_login_date" type="java.util.Date"/>
 
         <property name="status" column="status" type="java.lang.Boolean"/>

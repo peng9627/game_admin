@@ -25,6 +25,7 @@ public class User extends ConcurrencySafeEntity {
     private String area;                //地方
     private Integer gameCount;          //游戏局数
     private Integer todayGameCount;     //今日游戏次数
+    private Integer todayCreateGameCount;     //今日创建次数
     private Date lastLoginDate;         //上次登陆时间
     private Boolean status;             //状态
     private Integer integral;           //积分
@@ -125,6 +126,14 @@ public class User extends ConcurrencySafeEntity {
         this.todayGameCount = todayGameCount;
     }
 
+    public Integer getTodayCreateGameCount() {
+        return todayCreateGameCount;
+    }
+
+    public void setTodayCreateGameCount(Integer todayCreateGameCount) {
+        this.todayCreateGameCount = todayCreateGameCount;
+    }
+
     public Date getLastLoginDate() {
         return lastLoginDate;
     }
@@ -219,6 +228,7 @@ public class User extends ConcurrencySafeEntity {
         this.money = 0;
         this.gameCount = 0;
         this.todayGameCount = 0;
+        this.todayCreateGameCount = 0;
         this.integral = 0;
         this.lastLoginDate = new Date();
         this.status = true;

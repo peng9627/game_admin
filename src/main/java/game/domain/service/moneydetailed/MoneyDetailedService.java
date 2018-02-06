@@ -53,8 +53,12 @@ public class MoneyDetailedService implements IMoneyDetailedService {
 
             user.setMoney(user.getMoney() + command.getMoney());
 
+            if (command.getDescription().contains("开房间退回")) {
+                if (user.getTodayCreateGameCount() > 0) {
+                    user.setTodayCreateGameCount(user.getTodayCreateGameCount() - 1);
+                }
+            }
             userService.update(user);
-
             MoneyDetailed moneyDetailed = new MoneyDetailed(user, command.getFlowType(), command.getMoney(), command.getDescription(), oldMoney, user.getMoney());
             moneyDetailedRepository.save(moneyDetailed);
 

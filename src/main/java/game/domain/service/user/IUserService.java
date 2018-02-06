@@ -28,7 +28,7 @@ public interface IUserService {
 
     User weChatLogin(LoginCommand command);
 
-    void addGameCount(int userId);
+    void addGameCount(int userId, boolean create);
 
     void share(Integer userId);
 

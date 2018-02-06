@@ -18,10 +18,12 @@ import game.core.util.CoreDateUtils;
 import game.core.util.CoreHttpUtils;
 import game.core.util.CoreStringUtils;
 import game.domain.model.system.System;
+import game.domain.model.task.Task;
 import game.domain.model.user.IUserRepository;
 import game.domain.model.user.User;
 import game.domain.service.moneydetailed.IMoneyDetailedService;
 import game.domain.service.system.ISystemService;
+import game.domain.service.task.ITaskService;
 import game.infrastructure.persistence.hibernate.generic.Pagination;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
@@ -44,13 +46,16 @@ public class UserService implements IUserService {
 
     private final ISystemService systemService;
 
+    private final ITaskService taskService;
+
     @Autowired
     private IMoneyDetailedService moneyDetailedService;
 
     @Autowired
-    public UserService(IUserRepository<User, String> userRepository, ISystemService systemService) {
+    public UserService(IUserRepository<User, String> userRepository, ISystemService systemService, ITaskService taskService) {
         this.userRepository = userRepository;
         this.systemService = systemService;
+        this.taskService = taskService;
     }
 
 
@@ -139,11 +144,13 @@ public class UserService implements IUserService {
             createCommand.setUserId(userId);
             createCommand.setFlowType(FlowType.IN_FLOW);
             createCommand.setMoney(system.getRegisterGive());
-            createCommand.setDescription("分享送钻石");
+            createCommand.setDescription("注册送钻石");
             moneyDetailedService.create(createCommand);
         } else {
             if (!CoreDateUtils.isSameDay(new Date(), user.getLastLoginDate())) {
                 user.setTodayGameCount(0);
+                user.setTodayCreateGameCount(0);
+                user.setShared(false);
             }
         }
         user.setAgent(command.getAgent());
@@ -163,12 +170,31 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void addGameCount(int userId) {
+    public void addGameCount(int userId, boolean create) {
         User user = searchByUserId(userId);
-        user.setGameCount(user.getGameCount() + 1);
-        user.setTodayGameCount(user.getTodayGameCount() + 1);
-        if (user.getTodayGameCount() == 100) {
-            user.setIntegral(user.getIntegral() + 100);
+        List<Task> tasks = taskService.list();
+        boolean add = false;
+        if (create) {
+            user.setTodayCreateGameCount(user.getTodayCreateGameCount() + 1);
+            for (Task task : tasks) {
+                if (2 == task.getTaskType() && user.getTodayCreateGameCount() == task.getTodayGameCount()) {
+                    user.setIntegral(user.getIntegral() + task.getReward());
+                    add = true;
+                    break;
+                }
+            }
+        } else {
+            user.setGameCount(user.getGameCount() + 1);
+            user.setTodayGameCount(user.getTodayGameCount() + 1);
+            for (Task task : tasks) {
+                if (1 == task.getTaskType() && user.getTodayGameCount() == task.getTodayGameCount()) {
+                    user.setIntegral(user.getIntegral() + task.getReward());
+                    add = true;
+                    break;
+                }
+            }
+        }
+        if (add) {
             SerializerFeature[] features = new SerializerFeature[]{SerializerFeature.WriteNullListAsEmpty,
                     SerializerFeature.WriteMapNullValue, SerializerFeature.DisableCircularReferenceDetect,
                     SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteNullNumberAsZero,
@@ -176,7 +202,7 @@ public class UserService implements IUserService {
             int ss = SerializerFeature.config(JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.WriteEnumUsingName, false);
             SocketRequest socketRequest = new SocketRequest();
             socketRequest.setUserId(userId);
-            CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10410/1", JSON.toJSONString(socketRequest, ss, features));
+            CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10010/1", JSON.toJSONString(socketRequest, ss, features));
         }
         userRepository.save(user);
     }

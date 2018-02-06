@@ -47,7 +47,7 @@ public class ApiMoneyDetailedController extends BaseApiController {
             int ss = SerializerFeature.config(JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.WriteEnumUsingName, false);
             SocketRequest socketRequest = new SocketRequest();
             socketRequest.setUserId(command.getUserId());
-            CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10410/1", JSON.toJSONString(socketRequest, ss, features));
+            CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10010/1", JSON.toJSONString(socketRequest, ss, features));
         } catch (ApiAuthenticationException e) {
             logger.warn(e.getMessage());
             apiResponse = new ApiResponse(ApiReturnCode.AUTHENTICATION_FAILURE);
