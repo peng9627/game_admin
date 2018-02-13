@@ -243,7 +243,7 @@ public class CoreQRCodeUtils {
     public static void main(String[] args) {
         CoreQRCodeUtils
                 .encode("http://youyouxz.chuangmikeji.com/",
-                        1000, 1000, "/home/pengyi/桌面/新建文件夹/GuangdongChessProject/resource/icon/180.png", "/home/pengyi/桌面/test.jpg");
+                        1000, 1000, "/home/pengyi/下载/xnyx.png", "/home/pengyi/桌面/test.jpg");
     }
 
 }

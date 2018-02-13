@@ -53,6 +53,7 @@ public class ApiUserController extends BaseApiController {
         try {
             LoginCommand command = this.authenticationAndConvert(request, LoginCommand.class);
             UserRepresentation userRepresentation = userAppService.weChatLogin(command);
+            userRepresentation.setSpreadCount(userAppService.spreadCount(userRepresentation.getUserId()));
             apiResponse = new ApiResponse<>(ApiReturnCode.SUCCESS, userRepresentation);
 
         } catch (ApiAuthenticationException e) {
@@ -98,7 +99,7 @@ public class ApiUserController extends BaseApiController {
             int ss = SerializerFeature.config(JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.WriteEnumUsingName, false);
             SocketRequest socketRequest = new SocketRequest();
             socketRequest.setUserId(command.getInteger("userId"));
-            CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10010/1", JSON.toJSONString(socketRequest, ss, features));
+            CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10110/1", JSON.toJSONString(socketRequest, ss, features));
             apiResponse = new ApiResponse(ApiReturnCode.SUCCESS);
         } catch (ApiAuthenticationException e) {
             logger.warn(e.getMessage());
@@ -135,7 +136,7 @@ public class ApiUserController extends BaseApiController {
         ApiResponse<List<Integer>> apiResponse;
         try {
             List<Integer> integers = new ArrayList<>();
-            String hall = CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10010/4", null);
+            String hall = CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10110/4", null);
             if (!CoreStringUtils.isEmpty(hall)) {
                 ApiResponse<Integer> hallResponse = JSON.parseObject(hall, new TypeReference<ApiResponse<Integer>>() {
                 });
@@ -145,24 +146,24 @@ public class ApiUserController extends BaseApiController {
             }
 
             int gameCount = 0;
-            String mahjong = CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10011/2", null);
+            String mahjong = CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10111/2", null);
             if (!CoreStringUtils.isEmpty(mahjong)) {
                 ApiResponse<Integer> mahjongResponse = JSON.parseObject(mahjong, new TypeReference<ApiResponse<Integer>>() {
                 });
                 gameCount += mahjongResponse.getData();
             }
-            mahjong = CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10012/2", null);
-            if (!CoreStringUtils.isEmpty(mahjong)) {
-                ApiResponse<Integer> mahjongResponse = JSON.parseObject(mahjong, new TypeReference<ApiResponse<Integer>>() {
-                });
-                gameCount += mahjongResponse.getData();
-            }
-            mahjong = CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10014/2", null);
-            if (!CoreStringUtils.isEmpty(mahjong)) {
-                ApiResponse<Integer> mahjongResponse = JSON.parseObject(mahjong, new TypeReference<ApiResponse<Integer>>() {
-                });
-                gameCount += mahjongResponse.getData();
-            }
+//            mahjong = CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10112/2", null);
+//            if (!CoreStringUtils.isEmpty(mahjong)) {
+//                ApiResponse<Integer> mahjongResponse = JSON.parseObject(mahjong, new TypeReference<ApiResponse<Integer>>() {
+//                });
+//                gameCount += mahjongResponse.getData();
+//            }
+//            mahjong = CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10014/2", null);
+//            if (!CoreStringUtils.isEmpty(mahjong)) {
+//                ApiResponse<Integer> mahjongResponse = JSON.parseObject(mahjong, new TypeReference<ApiResponse<Integer>>() {
+//                });
+//                gameCount += mahjongResponse.getData();
+//            }
             integers.add(gameCount);
             apiResponse = new ApiResponse<>(ApiReturnCode.SUCCESS, integers);
         } catch (Exception e) {
@@ -186,7 +187,7 @@ public class ApiUserController extends BaseApiController {
                 int ss = SerializerFeature.config(JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.WriteEnumUsingName, false);
                 SocketRequest socketRequest = new SocketRequest();
                 socketRequest.setUserId(command.getParent());
-                CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10010/1", JSON.toJSONString(socketRequest, ss, features));
+                CoreHttpUtils.urlConnectionByRsa("http://127.0.0.1:10110/1", JSON.toJSONString(socketRequest, ss, features));
             }
             apiResponse = new ApiResponse<>(ApiReturnCode.SUCCESS);
         } catch (NoFoundException e) {
