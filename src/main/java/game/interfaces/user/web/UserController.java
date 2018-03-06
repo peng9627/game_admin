@@ -98,7 +98,7 @@ public class UserController extends BaseApiController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ModelAndView("/person");
+        return new ModelAndView("");
     }
 
     @RequestMapping(value = "/person")
